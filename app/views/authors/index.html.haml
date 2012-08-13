@@ -1,0 +1,15 @@
+%h1 Authors
+%br
+%table.table.table-striped.table-condensed
+  - @authors.each do |author|
+    %tr
+      %td= link_to author.last_name+" "+author.first_name, author
+      %td
+        %a.btn.btn-mini{:href => edit_author_path(author)}
+          %i.icon-pencil
+            Edit
+        = link_to 'Destroy', author, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+
+= link_to 'New Author', new_author_path

@@ -1,0 +1,11 @@
+= form_for(@collection) do |f|
+  %dl.dl-horizontal
+    .field
+      %dt= f.label :name
+      %dd= f.text_field :name
+    .field
+      %dt= f.label :publisher
+      %dd
+        = f.collection_select(:publisher_id, Publisher.all, :id, :name)
+  .actions
+    = f.submit

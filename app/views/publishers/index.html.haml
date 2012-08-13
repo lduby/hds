@@ -1,0 +1,15 @@
+%h1 Publishers
+%br
+%table.table.table-striped.table-condensed
+  - @publishers.each do |publisher|
+    %tr
+      %td= link_to publisher.name, publisher
+      %td
+        %a.btn.btn-mini{:href => edit_publisher_path(publisher)}
+          %i.icon-pencil
+            Edit
+        = link_to 'Destroy', publisher, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+
+= link_to 'New Publisher', new_publisher_path

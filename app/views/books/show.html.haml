@@ -1,0 +1,66 @@
+%p#notice= notice
+.row
+  .span8
+    .row
+      .span2
+        .thumbnail
+          %img{:src => @book.cover_url}
+        %p 
+          My rating
+          %div
+            %span.rating
+              %span.star
+                %i.icon-star-empty
+              %span.star
+                %i.icon-star-empty
+              %span.star
+                %i.icon-star-empty
+              %span.star
+                %i.icon-star-empty
+              %span.star
+                %i.icon-star-empty
+          %a.btn.btn-mini{:href => "#"}
+            %i.icon-ok-sign
+            Add to my books
+      .span6
+        %h2= @book.title
+        - @authorslist = ""
+        - @book.authors.each do |author|
+          - if author == @book.authors.first
+            @authorslist << author.name
+          - else 
+            @authorslist << ", "
+            @authorslist << author.name
+        %h5= "by "+@authorslist
+        %p= @book.publisher_resume
+        .well
+          %small
+            - if !@book.publisher.nil?
+              = "Published "+@book.published_at.to_datetime.to_s+" by "
+              =link_to @book.publisher.name, publisher_path(@book.publisher) 
+              %br
+            - if !@book.collection.nil?
+              = "Collection: "+@book.collection.name
+              %br
+            - if !@book.page_count.nil?
+              = @book.page_count.to_s+" pages"
+              %br
+            - if !@book.isbn10.nil?
+              = "ISBN: "+@book.isbn10
+              - if !@book.isbn13.nil?
+                = " - ISBN 13: "+@book.isbn13
+                %br
+            - else 
+              - if !@book.isbn13.nil?
+                = "ISBN13: "+@book.isbn13
+                %br
+  .span4
+    .page-header
+      %h3= "Other Editions"
+    .page-header
+      %h3= "Tags"
+    
+
+= link_to 'Edit', edit_book_path(@book)
+\|
+= link_to 'Back', books_path

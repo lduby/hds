@@ -1,0 +1,36 @@
+%h1 Books
+
+- if @books.size == 0
+  %p No books found.
+- else 
+  %ul.thumbnails
+    - @books.each do |book|
+      %li.span3
+        .thumbnail
+          %img{:src => book.cover_url}
+          .caption
+            %h5= book.title
+            - book.authors.each do |author|
+              %p= author.name
+            %a.btn.btn-mini{:href => book_path(book)}
+              %i.icon-hand-up
+              Details
+            %a.btn.btn-mini{:href => edit_book_path(book)}
+              %i.icon-pencil
+              Edit
+            %div
+              %span.rating
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+
+%br
+
+= link_to 'New Book', new_book_path

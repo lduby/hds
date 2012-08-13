@@ -1,0 +1,29 @@
+%p#notice= notice
+%h1= @publisher.name
+.well
+  - if @publisher.collections.size == 0
+    %b No collections found.
+  - else
+    %b Collections:
+  %table
+    - @publisher.collections.each do |collection|
+      %tr
+        %td= link_to collection.name, collection
+        %td
+          %a.btn.btn-mini{:href => edit_collection_path(collection)}
+            %i.icon-pencil
+              Edit
+        %td
+          = link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+%h2 Add a collection:
+= form_for([@publisher, @publisher.collections.build]) do |f|
+  %dl.dl-horizontal
+    .field
+      %dt= f.label 'Collection Name'
+      %dd= f.text_field :name
+  .actions
+    = f.submit
+
+= link_to 'Edit', edit_publisher_path(@publisher)
+\|
+= link_to 'Back', publishers_path

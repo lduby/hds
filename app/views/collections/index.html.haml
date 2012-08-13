@@ -1,0 +1,19 @@
+%h1 Collections
+%br
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Publisher
+      %th Actions
+  %tbody
+  - @collections.each do |collection|
+    %tr
+      %td= link_to collection.name, collection
+      %td= link_to collection.publisher.name, collection.publisher
+      %td
+        %a.btn.btn-mini{:href => edit_collection_path(collection)}
+          %i.icon-pencil
+            Edit
+        = link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+

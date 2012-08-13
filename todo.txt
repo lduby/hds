@@ -1,0 +1,8 @@
+Suppression d'un author : Could not find table 'books' / app/controllers/authors_controller.rb:76:in `destroy'
+Impossible de créer une collection sans passer par la page du Publisher associé.
+
+
+      %dd= f.collection_select(:publisher_id, Publisher.all, :id, :name)
+      
+      %dd
+        %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => "Publisher", :type => "text"}/
