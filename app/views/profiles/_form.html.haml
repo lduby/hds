@@ -1,0 +1,17 @@
+= form_for(@profile) do |f|
+  %dl.dl-horizontal
+    .field
+      %dt= f.label :last_name
+      %dd= f.text_field :last_name
+    .field
+      %dt= f.label :first_name
+      %dd= f.text_field :first_name
+    .field
+      %dt= f.label :city
+      %dd= f.text_field :city
+    .field
+      %dt= f.label :country
+      %dd= f.text_field :country
+
+  .actions
+    = f.submit

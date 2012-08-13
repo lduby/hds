@@ -1,14 +1,23 @@
 = link_to "Histoires Du Soir", root_path, :class => 'brand'
+- if user_signed_in?
+  .btn-group.pull-right
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      %i.icon-user
+      - if !current_user.profile.last_name.nil?
+        = current_user.profile.name
+      - else 
+        = current_user.email.to_s[0,current_user.email.to_s.index("@")]
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        %a{:href => profile_path(current_user.profile)} Profile
+      %li
+        = link_to('Edit account', edit_user_registration_path)
+      %li.divider
+      %li
+        = link_to('Logout', destroy_user_session_path, :method=>'delete')
 %ul.nav
   - if user_signed_in?
-    %li
-      = link_to('Logout', destroy_user_session_path, :method=>'delete')
-  - else
-    %li
-      = link_to('Login', new_user_session_path)
-  - if user_signed_in?
-    %li
-      = link_to('Edit account', edit_user_registration_path)
     %li
       = link_to 'Books', books_path
     - if current_user.is? :manager
@@ -29,5 +38,7 @@
       %li
         = link_to 'Users', 'users_path'
   - else
+    %li
+      = link_to('Login', new_user_session_path)
     %li
       = link_to('Sign up', new_user_registration_path)

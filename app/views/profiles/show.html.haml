@@ -1,0 +1,29 @@
+%br
+.row
+  .span8
+    .row
+      .span2
+        .thumbnail
+          %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcSi80PQtcEt9ZoMQIxgDgN8SaXaH4wwJt5GvASTHW1-Pt5z4uPt"}
+        %br
+        %a.btn.btn-mini{:href => edit_profile_path(@profile)}
+          %i.icon-pencil
+            Edit Profile
+      .span6
+        .well
+          %h2= @profile.name
+          %h5= @profile.city.to_s+", "+@profile.country.to_s
+        .page-header
+          %h4= @profile.first_name.to_s+"'s Children"
+        .page-header
+          %h4= @profile.first_name.to_s+"'s Books"
+        .page-header
+          %h4= @profile.first_name.to_s+"'s Shelves"
+        .page-header
+          %h4= @profile.first_name.to_s+"'s Reviews"
+  .span4
+    .page-header
+      %h3= "Following"
+    .page-header
+      %h3= "Followers"
+      

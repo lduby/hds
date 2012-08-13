@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
+  has_one :profile
   ROLES = %w[superuser admin manager banned]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

@@ -2,13 +2,16 @@ Hds::Application.routes.draw do
   
   get 'books/search_publishers'
   devise_for :users  
-  resources :users, :only => [:show, :index]
+  resources :users, :only => [:show, :index] do 
+    resources :profile
+  end
   resources :publishers do
     resources :collections
   end
   resources :authors
   resources :collections
   resources :books 
+  resources :profiles
 
 
   # The priority is based upon order of creation:
