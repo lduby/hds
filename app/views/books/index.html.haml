@@ -10,8 +10,8 @@
           %img{:src => book.cover_url}
           .caption
             %h5= book.title
-            - book.authors.each do |author|
-              %p= author.name
+            %small= book.authors_list
+            %br
             %a.btn.btn-mini{:href => book_path(book)}
               %i.icon-hand-up
               Details

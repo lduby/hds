@@ -10,7 +10,7 @@ class Book < ActiveRecord::Base
       if a == authors.first
         @list << "#{a.name}"
       else 
-        @list << "#{a.name}, "
+        @list << ", #{a.name}"
       end
     end
     @list
