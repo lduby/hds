@@ -4,12 +4,19 @@
       %dt= f.label :title
       %dd= f.text_field :title
     .field
+      %dt= f.label "Author(s)"
+      %dd
+        - if @book.authors.size == 0
+          %input.search-query.span2.typeahead{:name => "book[authors]", :placeholder => 'Authors', :type => "text", :id => 'book_authors'}/
+        - else
+          %input.search-query.span2.typeahead{:name => "book[authors]", :placeholder => @book.authors_list, :type => "text", :id => 'book_authors'}/
+    .field
       %dt= f.label :publisher
       %dd
         - if @book.publisher.nil?
-          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text"}/
+          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text", :id => 'book_publisher'}/
         - else
-          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => @book.publisher.name, :type => "text"}/
+          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
     .field
       %dt= f.label :published_at
       %dd= f.date_select :published_at

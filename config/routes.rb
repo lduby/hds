@@ -1,5 +1,6 @@
 Hds::Application.routes.draw do
   
+  get 'books/search_authors'
   get 'books/search_publishers'
   devise_for :users  
   resources :users, :only => [:show, :index] do 

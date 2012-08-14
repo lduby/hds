@@ -24,21 +24,23 @@
             Add to my books
       .span6
         %h2= @book.title
-        - @authorslist = ""
-        - @book.authors.each do |author|
-          - if author == @book.authors.first
-            @authorslist << author.name
-          - else 
-            @authorslist << ", "
-            @authorslist << author.name
-        %h5= "by "+@authorslist
+        %h5= "by "+@book.authors_list
         %p= @book.publisher_resume
         .well
           %small
-            - if !@book.publisher.nil?
-              = "Published "+@book.published_at.to_datetime.to_s+" by "
-              =link_to @book.publisher.name, publisher_path(@book.publisher) 
-              %br
+            - if !@book.publisher.nil? 
+              - if !@book.published_at.nil?
+                = "Published "+@book.published_at.to_datetime.to_s+" by "
+                =link_to @book.publisher.name, publisher_path(@book.publisher) 
+                %br
+              - else
+                = "Published by "
+                =link_to @book.publisher.name, publisher_path(@book.publisher) 
+                %br
+            - else 
+              - if !@book.published_at.nil?
+                = "Published "+@book.published_at.to_datetime.to_s
+                %br             
             - if !@book.collection.nil?
               = "Collection: "+@book.collection.name
               %br
