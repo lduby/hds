@@ -1,0 +1,10 @@
+= form_for([@profile, @profile.shelves.build]) do |f|
+  %dl.dl-horizontal
+    .field
+      %dt= f.label :name
+      %dd= f.text_field :name
+    .field
+      %dt= f.label :description
+      %dd= f.text_field :description
+  .actions
+    = f.submit

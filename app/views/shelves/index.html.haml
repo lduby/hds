@@ -1,0 +1,27 @@
+%br
+%h1 My Library
+%br
+.row
+  .span4
+    #shelves_list.well{:style => "padding: 8px 0;"}
+      %ul.nav.nav-list
+        - @shelves.each do |shelf|
+          - if shelf == @shelves.first
+            %li.active
+              %a{:href => "/"}
+                %i.icon-book
+                = shelf.name
+              - if !['to_read','read','currently_reading'].include?(shelf.name)
+                %span= link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove'
+          - else 
+            %li
+              %a{:href => "/"}
+                %i.icon-book
+                = shelf.name
+              - if !['to_read','read','currently_reading'].include?(shelf.name)
+                = link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove pull-right'
+  #shelves_details.span8
+  
+%br
+
+= link_to 'New Shelf', new_profile_shelf_path

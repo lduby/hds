@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @shelf.name
+%p
+  %b Description:
+  = @shelf.description
+
+= link_to 'Edit', edit_shelf_path(@shelf)
+\|
+= link_to 'Back', shelves_path

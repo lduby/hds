@@ -16,9 +16,16 @@
         .page-header
           %h4= @profile.first_name.to_s+"'s Children"
         .page-header
-          %h4= @profile.first_name.to_s+"'s Books"
+          %h4= @profile.first_name.to_s+"'s Last Books"
         .page-header
           %h4= @profile.first_name.to_s+"'s Shelves"
+          %br
+          - if @profile.shelves.size != 0
+            %ul
+              - @profile.shelves.each do |shelf|
+                %li= shelf.name.to_s+" "+shelf.id.to_s
+            %br
+            = link_to 'New Shelf', new_profile_shelf_path(@profile)
         .page-header
           %h4= @profile.first_name.to_s+"'s Reviews"
   .span4

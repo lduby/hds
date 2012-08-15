@@ -1,1 +1,16 @@
 %h3 Welcome 
+- if !user_signed_in?
+  #myCarousel.carousel.slide
+    / Carousel items
+    .carousel-inner
+      .active.item
+        %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcSwKBMjVY9xskccErc2kRX0vtCYsRKOXT6AHz1kgZQbE6r8wqcw_Q", :width => "1280px"}
+      .item
+        %img{:src => "http://t3.gstatic.com/images?q=tbn:ANd9GcSJyg72Fu-t89voeoLNdPoYa2pBbqkPiz5P3HQyYV2FQ6dqde2L", :width => "1280px"}
+      .item
+        %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcS3NtMvAiStK5PwaRpLciU3lZXekBvkJP470aTUX1L_JDTZI0WfcQ", :width => "1280px"}
+      .item
+        %img{:src => "http://t0.gstatic.com/images?q=tbn:ANd9GcSs3pytN55REjvH9UaPPbGzN10RPAugMrnjSxLXZ9WtW7upHQE5Gg", :width => "1280px"}
+    / Carousel nav
+    %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+    %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
