@@ -80,10 +80,11 @@ class ShelvesController < ApplicationController
   # DELETE /shelves/1.json
   def destroy
     @shelf = Shelf.find(params[:id])
+    @profile = @shelf.profile
     @shelf.destroy
 
     respond_to do |format|
-      format.html { redirect_to shelves_url }
+      format.html { redirect_to profile_shelves_path(@profile) }
       format.json { head :no_content }
     end
   end
