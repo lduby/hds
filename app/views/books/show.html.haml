@@ -19,9 +19,7 @@
                 %i.icon-star-empty
               %span.star
                 %i.icon-star-empty
-          %a.btn.btn-mini{:href => "#"}
-            %i.icon-ok-sign
-            Add to my books
+          = render_shelf_selection_form_for current_user
       .span6
         %h2= @book.title
         %h5= "by "+@book.authors_list
@@ -30,7 +28,7 @@
           %small
             - if !@book.publisher.nil? 
               - if !@book.published_at.nil?
-                = "Published "+@book.published_at.to_datetime.to_s+" by "
+                = "Published "+@book.published_at.to_date.to_s+" by "
                 =link_to @book.publisher.name, publisher_path(@book.publisher) 
                 %br
               - else

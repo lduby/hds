@@ -2,6 +2,8 @@ Hds::Application.routes.draw do
   
   get 'books/search_authors'
   get 'books/search_publishers'
+  put 'reviews/select_shelf'
+  put 'reviews/change_shelf'
   devise_for :users  
   resources :users, :only => [:show, :index] do
     resources :profile, :controller => :profiles, :name_prefix => "user_"
@@ -18,9 +20,13 @@ Hds::Application.routes.draw do
   end
   resources :authors
   resources :collections
-  resources :books
+  resources :books do 
+    resources :reviews, :name_prefix => "book_"
+  end
   resources :children, :only => [:show]
+  resources :reviews
 
+    
   
   
 

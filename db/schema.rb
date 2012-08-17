@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817121846) do
+ActiveRecord::Schema.define(:version => 20120817152236) do
 
   create_table "authors", :force => true do |t|
     t.string   "first_name"
@@ -96,6 +96,20 @@ ActiveRecord::Schema.define(:version => 20120817121846) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "shelf_id"
+    t.integer  "book_id"
+    t.integer  "rating"
+    t.text     "details"
+    t.integer  "child_id"
+    t.date     "favoriting_date"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "reviews", ["child_id", "book_id"], :name => "index_reviews_on_child_id_and_book_id"
+  add_index "reviews", ["shelf_id", "book_id"], :name => "index_reviews_on_shelf_id_and_book_id"
 
   create_table "shelves", :force => true do |t|
     t.string   "name"
