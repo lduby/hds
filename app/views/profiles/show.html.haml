@@ -14,18 +14,28 @@
           %h2= @profile.name
           %h5= @profile.city.to_s+", "+@profile.country.to_s
         .page-header
-          %h4= @profile.first_name.to_s+"'s Children"
+          %h4
+            = @profile.first_name.to_s+"'s Children"
+            %a.btn.pull-right{:href => new_profile_child_path(@profile)}
+              %i.icon-plus
+              New Child
+          - if @profile.children.size != 0
+            %ul
+              - @profile.children.each do |child|
+                %li= link_to child.first_name, profile_child_path(child)
         .page-header
           %h4= @profile.first_name.to_s+"'s Last Books"
         .page-header
-          %h4= @profile.first_name.to_s+"'s Shelves"
+          %h4
+            = @profile.first_name.to_s+"'s Shelves"
+            %a.btn.pull-right{:href => new_profile_shelf_path(@profile)}
+              %i.icon-plus
+              New Shelf
           %br
           - if @profile.shelves.size != 0
             %ul
               - @profile.shelves.each do |shelf|
                 %li= shelf.name.to_s+" "+shelf.id.to_s
-            %br
-            = link_to 'New Shelf', new_profile_shelf_path(@profile)
         .page-header
           %h4= @profile.first_name.to_s+"'s Reviews"
   .span4

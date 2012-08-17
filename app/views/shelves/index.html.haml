@@ -8,14 +8,14 @@
         - @shelves.each do |shelf|
           - if shelf == @shelves.first
             %li.active
-              %a{:href => "/"}
+              %a{:href => shelf_path(shelf)}
                 %i.icon-book
                 = shelf.name
               - if !['to_read','read','currently_reading'].include?(shelf.name)
                 %span= link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove'
           - else 
             %li
-              %a{:href => "/"}
+              %a{:href => shelf_path(shelf)}
                 %i.icon-book
                 = shelf.name
               - if !['to_read','read','currently_reading'].include?(shelf.name)
@@ -25,3 +25,10 @@
 %br
 
 = link_to 'New Shelf', new_profile_shelf_path
+
+%script{:type => "text/javascript"}
+  :plain
+  
+    $(document).ready(function() { 
+      $(".nav-list a").displayWithAjax("#shelves_details");
+    });

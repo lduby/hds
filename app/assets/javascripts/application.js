@@ -13,3 +13,32 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+jQuery.ajaxSetup({ 
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+jQuery.fn.submitWithAjax = function() {
+  this.submit(function() {
+    $.post(this.action, $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};
+
+jQuery.fn.displayWithAjax = function(location) {
+  this.click(function(event) {
+    // Rendre inactive toutes les li
+    $('.nav-list li').removeClass("active");
+    // Activer la li cliquée
+    $(this).closest("li").addClass("active");
+    // Afficher sans layout le résultat du href dans la div location
+    var href = $(this).attr("href");
+    $(location).load(href);
+    // Retourne false pour ne pas que le lien soit suivi
+    event.preventDefault();
+    
+    return false;
+  })
+  return this;
+};

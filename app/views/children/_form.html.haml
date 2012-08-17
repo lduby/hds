@@ -1,0 +1,10 @@
+= form_for([@profile, @profile.children.build]) do |f|
+  %dl.dl-horizontal
+    .field
+      %dt= f.label :first_name
+      %dd= f.text_field :first_name
+    .field
+      %dt= f.label :birth_date
+      %dd= f.date_select :birth_date
+  .actions
+    = f.submit

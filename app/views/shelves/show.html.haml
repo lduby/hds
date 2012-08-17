@@ -1,12 +1,9 @@
 %p#notice= notice
-
-%p
-  %b Name:
-  = @shelf.name
-%p
-  %b Description:
-  = @shelf.description
-
-= link_to 'Edit', edit_shelf_path(@shelf)
-\|
-= link_to 'Back', shelves_path
+.page-header
+  %h4
+    = @shelf.name
+    %a.btn.btn-mini.pull-right{:href => edit_profile_shelf_path(@shelf.profile,@shelf)}
+      %i.icon-pencil
+      Edit Shelf
+    %small= @shelf.description
+%h5= "Shelf books"

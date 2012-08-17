@@ -8,6 +8,7 @@ Hds::Application.routes.draw do
   end
   resources :profiles, :only => [:show, :edit] do
     resources :shelves, :name_prefix => "profile_"
+    resources :children, :name_prefix => "profile_"
   end
   resources :shelves do
     resources :books, :name_prefix => "shelf_"
@@ -18,7 +19,9 @@ Hds::Application.routes.draw do
   resources :authors
   resources :collections
   resources :books
+  resources :children, :only => [:show]
 
+  
   
 
 

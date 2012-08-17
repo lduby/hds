@@ -19,11 +19,12 @@ class ShelvesController < ApplicationController
   # GET /shelves/1.json
   def show
     @shelf = Shelf.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @shelf }
-    end
+    render :layout => false
+#    respond_to do |format|
+#      format.html # show.html.erb
+#      format.json { render json: @shelf }
+#      format.js
+#    end
   end
 
   # GET /shelves/new
