@@ -22,7 +22,7 @@
           - if @profile.children.size != 0
             %ul
               - @profile.children.each do |child|
-                %li= link_to child.first_name, profile_child_path(child)
+                %li= link_to child.first_name, profile_child_path(@profile,child)
         .page-header
           %h4= @profile.first_name.to_s+"'s Last Books"
           - if @all_shelves_books.size == 0
