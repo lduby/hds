@@ -4,6 +4,8 @@ Hds::Application.routes.draw do
   get 'books/search_publishers'
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
+  get 'profiles/search_followable_users'
+
   devise_for :users  
   resources :users do
     resources :profile, :controller => :profiles, :name_prefix => "user_"
@@ -25,6 +27,7 @@ Hds::Application.routes.draw do
   end
   resources :children, :only => [:show]
   resources :reviews
+  resources :follows
 
     
   

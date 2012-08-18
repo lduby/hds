@@ -1,33 +1,54 @@
+%br
 %h1 Books
-
-- if @books.size == 0
-  %p No books found.
-- else 
-  %ul.thumbnails
-    - @books.each do |book|
-      %li.span3
-        .thumbnail
-          %a{:href => book_path(book)}
-            %img{:src => book.cover_url}
-          .caption
-            %h5= book.title
-            %small= book.authors_list
-            %br
-            %a.btn.btn-mini{:href => edit_book_path(book)}
-              %i.icon-pencil
-              Edit
-            %div
-              %span.rating
-                %span.star
-                  %i.icon-star-empty
-                %span.star
-                  %i.icon-star-empty
-                %span.star
-                  %i.icon-star-empty
-                %span.star
-                  %i.icon-star-empty
-                %span.star
-                  %i.icon-star-empty
+%br
+.row
+  .span2
+    .well{:style => "padding: 8px 0;"}
+      %ul.nav.nav-list{:id => "filters"}
+        %li.nav-header Age
+        %li.nav-header Themes
+        %li 
+          %a{:href => "#"} Rituel Coucher
+        %li 
+          %a{:href => "#"} Pot
+        %li 
+          %a{:href => "#"} Colère
+        %li 
+          %a{:href => "#"} Arrivée d'un bébé
+        %li.nav-header Tags
+        %li panda
+        %li educatif
+        %li calques
+        %li rigolo
+  #results.span10
+    - if @books.size == 0
+      %p No books found.
+    - else 
+      %ul.thumbnails
+        - @books.each do |book|
+          %li.span2
+            .thumbnail
+              %a{:href => book_path(book)}
+                %img{:src => book.cover_url}
+              .caption
+                %h5= book.title
+                %small= book.authors_list
+                %br
+                %a.btn.btn-mini{:href => edit_book_path(book)}
+                  %i.icon-pencil
+                  Edit
+                %div
+                  %span.rating
+                    %span.star
+                      %i.icon-star-empty
+                    %span.star
+                      %i.icon-star-empty
+                    %span.star
+                      %i.icon-star-empty
+                    %span.star
+                      %i.icon-star-empty
+                    %span.star
+                      %i.icon-star-empty
 
 %br
 

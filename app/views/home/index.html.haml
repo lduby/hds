@@ -12,17 +12,16 @@
     %br
     %a.btn.btn-primary.btn-large{:href => new_user_registration_path}
       Join us!
-  %br
-  .page-header
-    %h3 Last entries
-    %br
-    %br
-    - if @books.size == 0
-      %p No books found in the library.
-    - else 
-      %ul.thumbnails
-      - @books.each do |book|
-        %li.span1
-          .thumbnail
-            %a{:href => book_path(book)}
-              %img{:src => book.cover_url}
+%br
+%h3 Last entries
+%br
+%br
+- if @books.size == 0
+  %p No books found in the library.
+- else 
+  %ul.thumbnails
+  - @books.each do |book|
+    %li.span1
+      .thumbnail
+        %a{:href => book_path(book)}
+          %img{:src => book.cover_url}

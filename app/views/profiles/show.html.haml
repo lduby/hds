@@ -6,9 +6,10 @@
         .thumbnail
           %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcSi80PQtcEt9ZoMQIxgDgN8SaXaH4wwJt5GvASTHW1-Pt5z4uPt"}
         %br
-        %a.btn.btn-mini{:href => edit_user_profile_path(current_user,@profile)}
-          %i.icon-pencil
-            Edit Profile
+        - if @profile.user == current_user
+          %a.btn.btn-mini{:href => edit_user_profile_path(current_user,@profile)}
+            %i.icon-pencil
+              Edit Profile
       .span6
         .well
           %h2= @profile.name
@@ -16,9 +17,10 @@
         .page-header
           %h4
             = @profile.first_name.to_s+"'s Children"
-            %a.btn.pull-right{:href => new_profile_child_path(@profile)}
-              %i.icon-plus
-              New Child
+            - if @profile.user == current_user
+              %a.btn.pull-right{:href => new_profile_child_path(@profile)}
+                %i.icon-plus
+                New Child
           - if @profile.children.size != 0
             %ul
               - @profile.children.each do |child|
@@ -42,9 +44,10 @@
         .page-header
           %h4
             = @profile.first_name.to_s+"'s Shelves"
-            %a.btn.pull-right{:href => new_profile_shelf_path(@profile)}
-              %i.icon-plus
-              New Shelf
+            - if @profile.user == current_user
+              %a.btn.pull-right{:href => new_profile_shelf_path(@profile)}
+                %i.icon-plus
+                New Shelf
           %br
           - if @profile.shelves.size != 0
             %ul
@@ -53,8 +56,26 @@
         .page-header
           %h4= @profile.first_name.to_s+"'s Reviews"
   .span4
+    - if @profile.user == current_user
+      %form{:id => "followable_user_form", :action => follows_path, :method => "post"}
+        %input{:type => "hidden", :name => "follower", :value => @profile.user.id}
+        .input-append
+          %input.input-xlarge.search-query.typeahead{:type => "text", :name => "followable", :placeholder => "Followable user", :id => "followable_user"}
+            %i.icon-search
+        %button.btn.btn-primary{:type => "submit"}
+          %i.icon-share-alt
+          Follow
     .page-header
       %h3= "Following"
+      - if @profile.user.all_following.size != 0
+        %ul
+          - @profile.user.all_following.each do |followee|
+            %li= link_to followee.profile.name, user_profile_path(followee,followee.profile)
     .page-header
       %h3= "Followers"
+      - if @profile.user.followers.size != 0
+        %ul
+          - @profile.user.followers.each do |follower|
+            %li= link_to follower.profile.name, user_profile_path(follower,follower.profile)
+
       

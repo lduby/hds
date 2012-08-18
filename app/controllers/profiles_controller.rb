@@ -65,4 +65,16 @@ class ProfilesController < ApplicationController
       end
     end
   end
+
+  def search_followable_users
+    logger.debug("Search for followable_users")
+    @followable_users_list=Array.new
+    User.all.each do |user|
+      if user != current_user
+        @followable_users_list << user.profile.name
+      end
+    end
+    render :json => @followable_users_list
+  end
+
 end
