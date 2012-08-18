@@ -36,6 +36,7 @@ class ProfilesController < ApplicationController
   end
   def edit
     @profile = Profile.find(params[:id])
+    @user = @profile.user
     if @profile.shelves.size == 0
       @def_shelf_1 = @profile.shelves.build(:name => "to_read")
       if @def_shelf_1.save
@@ -56,7 +57,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to user_profile_path(@profile.user,@profile), notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -5,7 +5,7 @@ Hds::Application.routes.draw do
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
   devise_for :users  
-  resources :users, :only => [:show, :index] do
+  resources :users do
     resources :profile, :controller => :profiles, :name_prefix => "user_"
   end
   resources :profiles, :only => [:show, :edit] do

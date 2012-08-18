@@ -1,16 +1,28 @@
-%h3 Welcome 
+%br
 - if !user_signed_in?
-  #myCarousel.carousel.slide
-    / Carousel items
-    .carousel-inner
-      .active.item
-        %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcSwKBMjVY9xskccErc2kRX0vtCYsRKOXT6AHz1kgZQbE6r8wqcw_Q", :width => "1280px"}
-      .item
-        %img{:src => "http://t3.gstatic.com/images?q=tbn:ANd9GcSJyg72Fu-t89voeoLNdPoYa2pBbqkPiz5P3HQyYV2FQ6dqde2L", :width => "1280px"}
-      .item
-        %img{:src => "http://t2.gstatic.com/images?q=tbn:ANd9GcS3NtMvAiStK5PwaRpLciU3lZXekBvkJP470aTUX1L_JDTZI0WfcQ", :width => "1280px"}
-      .item
-        %img{:src => "http://t0.gstatic.com/images?q=tbn:ANd9GcSs3pytN55REjvH9UaPPbGzN10RPAugMrnjSxLXZ9WtW7upHQE5Gg", :width => "1280px"}
-    / Carousel nav
-    %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
-    %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+  .hero-unit
+    %h1 Children books referential
+    %br
+    %p 
+      You don't know what to read to your children ...
+      %br
+      You want books to help your children confronting their fears ... 
+      %br
+      You're expecting and you want to explain your children what's going on ...
+    %br
+    %a.btn.btn-primary.btn-large{:href => new_user_registration_path}
+      Join us!
+  %br
+  .page-header
+    %h3 Last entries
+    %br
+    %br
+    - if @books.size == 0
+      %p No books found in the library.
+    - else 
+      %ul.thumbnails
+      - @books.each do |book|
+        %li.span1
+          .thumbnail
+            %a{:href => book_path(book)}
+              %img{:src => book.cover_url}
