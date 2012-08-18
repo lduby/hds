@@ -9,6 +9,17 @@ class ShelvesController < ApplicationController
       logger.debug("Current user wanna see another user shelves")
     end
     @shelves = @profile.shelves
+    @all_shelves_books = Array.new
+    if !@shelves.empty?
+      @shelves.each do |shelf|
+        if !shelf.books.empty?
+          shelf.books.each do |book|
+            @all_shelves_books << book
+          end
+        end
+      end
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @shelves }

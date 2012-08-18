@@ -6,22 +6,23 @@
     #shelves_list.well{:style => "padding: 8px 0;"}
       %ul.nav.nav-list
         - @shelves.each do |shelf|
-          - if shelf == @shelves.first
-            %li.active
-              %a{:href => shelf_path(shelf)}
-                %i.icon-book
-                = shelf.name
-              - if !['to_read','read','currently_reading'].include?(shelf.name)
-                %span= link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove'
-          - else 
-            %li
-              %a{:href => shelf_path(shelf)}
-                %i.icon-book
-                = shelf.name
-              - if !['to_read','read','currently_reading'].include?(shelf.name)
-                = link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove pull-right'
+          %li
+            %a{:href => shelf_path(shelf)}
+              %i.icon-book
+              = shelf.name
+            - if !['to_read','read','currently_reading'].include?(shelf.name)
+              = link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove pull-right'
   #shelves_details.span8
-  
+    - if @all_shelves_books.size == 0
+      %p No books found in the library.
+    - else 
+      %ul.thumbnails
+      - @all_shelves_books.each do |book|
+        %li.span1
+          .thumbnail
+            %a{:href => book_path(book)}
+              %img{:src => book.cover_url}
+
 %br
 
 = link_to 'New Shelf', new_profile_shelf_path

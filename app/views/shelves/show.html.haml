@@ -6,8 +6,10 @@
       %i.icon-pencil
       Edit Shelf
     %small= @shelf.description
-%h5= "Shelf books"
-%ul
-- @shelf.books.each do |book|
-  %li= link_to book.title, book
+- if @shelf.books.size != 0
+  .thumbnails
+  - @shelf.books.each do |book|
+    .span1
+      %a{:href => book_path(book)}
+        %img{:src => book.cover_url}
   
