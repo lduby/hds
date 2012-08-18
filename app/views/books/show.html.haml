@@ -5,21 +5,22 @@
       .span2
         .thumbnail
           %img{:src => @book.cover_url}
-        %p 
-          My rating
-          %div
-            %span.rating
-              %span.star
-                %i.icon-star-empty
-              %span.star
-                %i.icon-star-empty
-              %span.star
-                %i.icon-star-empty
-              %span.star
-                %i.icon-star-empty
-              %span.star
-                %i.icon-star-empty
-          = render_shelf_selection_form_for current_user
+        - if user_signed_in?
+          %p 
+            My rating
+            %div
+              %span.rating
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+                %span.star
+                  %i.icon-star-empty
+            = render_shelf_selection_form_for current_user
       .span6
         %h2= @book.title
         %h5= "by "+@book.authors_list
@@ -60,7 +61,7 @@
     .page-header
       %h3= "Tags"
     
-
-= link_to 'Edit', edit_book_path(@book)
-\|
-= link_to 'Back', books_path
+- if user_signed_in?
+  = link_to 'Edit', edit_book_path(@book)
+  \|
+  = link_to 'Back', books_path

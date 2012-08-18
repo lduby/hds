@@ -14,9 +14,12 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @book = Book.find(params[:id])
-    @current_user = current_user
-    # Recupération de l'étagère sur laquelle a été rangé le livre
-    @book_shelf = @book.shelves.where(:profile_id => current_user.profile.id).first
+    @book_shelf = nil
+    if user_signed_in?
+      @current_user = current_user
+      # Recupération de l'étagère sur laquelle a été rangé le livre
+      @book_shelf = @book.shelves.where(:profile_id => current_user.profile.id).first
+    end
     
     respond_to do |format|
       format.html # show.html.erb
