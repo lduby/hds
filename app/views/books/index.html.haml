@@ -7,14 +7,12 @@
     - @books.each do |book|
       %li.span3
         .thumbnail
-          %img{:src => book.cover_url}
+          %a{:href => book_path(book)}
+            %img{:src => book.cover_url}
           .caption
             %h5= book.title
             %small= book.authors_list
             %br
-            %a.btn.btn-mini{:href => book_path(book)}
-              %i.icon-hand-up
-              Details
             %a.btn.btn-mini{:href => edit_book_path(book)}
               %i.icon-pencil
               Edit
