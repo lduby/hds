@@ -117,10 +117,11 @@ class ReviewsController < ApplicationController
     @book = Book.find(params[:book_id])
     @old_shelf = Shelf.find(params[:old_shelf_id])
     @new_shelf = Shelf.find(params[:new_shelf_id])
-    @review = Review.find_by_book_and_shelf(params[:book_id],params[:old_shelf_id])
-    if @shelf.name != "to_read"
+    @review = @book.reviews.where(:shelf_id => @old_shelf.id).first
+    if @new_shelf.name != "to_read"
+      # The book was already read and a full review necessarily already exists
       # Changing the shelf reference without changing rating, details or children favoriting link
-      @review.shelf = @new.shelf
+      @review.shelf = @new_shelf
       if @review.save
         respond_to do |format|
           format.html { redirect_to @book, notice: 'Book was successfully changed of shelf.' }
@@ -133,6 +134,7 @@ class ReviewsController < ApplicationController
         end
       end
     else
+      # The book was originally on the to_read shelf and no review was written by the user
       # Changing the shelf reference and redirecting to edit form to give a rating and optionnally some details
       @review.shelf = @new_shelf
       if @review.save 

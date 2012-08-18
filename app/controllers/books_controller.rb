@@ -15,6 +15,9 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @current_user = current_user
+    # Recupération de l'étagère sur laquelle a été rangé le livre
+    @book_shelf = @book.shelves.where(:profile_id => current_user.profile.id).first
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @book }
