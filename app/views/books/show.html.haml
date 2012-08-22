@@ -22,7 +22,9 @@
                   %i.icon-star-empty
             = render_shelf_selection_form_for current_user
       .span6
-        %h2= @book.title
+        %h2
+          = @book.title
+          %span.badge= @book.average_rating 
         %h5= "by "+@book.authors_list
         %p= @book.publisher_resume
         .well
@@ -55,6 +57,16 @@
               - if !@book.isbn13.nil?
                 = "ISBN13: "+@book.isbn13
                 %br
+    .page-header
+      %h3= "Book Reviews"
+    - if @book.reviews.size != 0
+      - @book.reviews.each do |review|
+        %blockquote
+          %p= review.details
+          %small
+            = link_to review.shelf.profile.name, user_profile_path(review.shelf.profile.user,review.shelf.profile)
+            - if !review.rating.nil?
+              %span.badge= review.rating 
   .span4
     .page-header
       %h3= "Other Editions"

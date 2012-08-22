@@ -18,4 +18,8 @@ class Book < ActiveRecord::Base
     end
     @list
   end
+
+  def average_rating
+    Review.average(:rating, :conditions => ['book_id = ?', self.id])
+  end
 end
