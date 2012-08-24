@@ -26,7 +26,14 @@
           = @book.title
           %span.badge= @book.average_rating
           %small= "( #{@book.ratings_count} ratings)" 
-        %h5= "by "+@book.authors_list
+        %h5
+          = "by "
+          - @book.authors.each do |a|
+            - if a == @book.authors.first
+              = link_to a.name, a
+            - else 
+              = ", "
+              = link_to a.name, a
         %p= @book.publisher_resume
         .well
           %small

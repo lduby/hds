@@ -1,5 +1,9 @@
 %br
-%h1 Books
+%h1 
+  Books
+  %a.btn.btn-mini.pull-right{:href => new_book_path}
+    %i.icon-plus
+    New Book
 %br
 .row
   .span2
@@ -49,7 +53,3 @@
                       %i.icon-star-empty
                     %span.star
                       %i.icon-star-empty
-
-%br
-
-= link_to 'New Book', new_book_path
