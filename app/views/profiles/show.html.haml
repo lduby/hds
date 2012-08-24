@@ -58,6 +58,20 @@
                 %li= shelf.name.to_s+" "+shelf.id.to_s
         .page-header
           %h4= @profile.first_name.to_s+"'s Reviews"
+          %br
+          - if @user_reviews.size != 0
+            - @user_reviews.each do |review|
+              .row
+                .span5
+                  %blockquote
+                    %p= review.details
+                    %small
+                      = link_to review.shelf.profile.name, user_profile_path(review.shelf.profile.user,review.shelf.profile)
+                      - if !review.rating.nil?
+                        %span.badge= review.rating 
+                .span1
+                  %a{:href => book_path(review.book)}
+                    %img{:src => review.book.cover_url}                    
   .span4
     - if @profile.user == current_user
       %form{:id => "followable_user_form", :action => follows_path, :method => "post"}

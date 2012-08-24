@@ -28,6 +28,17 @@ class ProfilesController < ApplicationController
         end
       end
     end
+    # Getting all the reviews written by the profile user
+    @user_reviews = Array.new
+    if !@profile.shelves.empty?
+      @profile.shelves.each do |shelf|
+        shelf.reviews.each do |review|
+          if !review.details.nil?
+            @user_reviews << review
+          end
+        end
+      end
+    end 
 
     respond_to do |format|
       format.html # show.html.erb
