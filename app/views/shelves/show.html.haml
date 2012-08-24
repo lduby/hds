@@ -6,6 +6,7 @@
       %i.icon-pencil
       Edit Shelf
     %small= @shelf.description
+  %h6= "(#{@shelf.books.size} books)"
 - if @shelf.books.size != 0
   .thumbnails
   - @shelf.books.each do |book|

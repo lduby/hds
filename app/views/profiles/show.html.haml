@@ -55,9 +55,9 @@
           - if @profile.shelves.size != 0
             %ul
               - @profile.shelves.each do |shelf|
-                %li= shelf.name.to_s+" "+shelf.id.to_s
+                %li= shelf.name.to_s+" ("+shelf.books.size.to_s+")"
         .page-header
-          %h4= @profile.first_name.to_s+"'s Reviews"
+          %h4= @profile.first_name.to_s+"'s Reviews ("+@user_reviews.size.to_s+")"
           %br
           - if @user_reviews.size != 0
             - @user_reviews.each do |review|

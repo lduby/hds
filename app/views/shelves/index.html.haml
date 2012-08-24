@@ -10,6 +10,7 @@
             %a{:href => shelf_path(shelf)}
               %i.icon-book
               = shelf.name
+              = "(#{shelf.books.size})"
             - if !['to_read','read','currently_reading'].include?(shelf.name)
               = link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove pull-right'
   #shelves_details.span8
