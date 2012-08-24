@@ -17,7 +17,7 @@
       .span6
         .well
           %h2= @child.first_name
-          %h5= @child.birth_date.to_s
+          %h5= @child.birth_date.to_s+" - "+@child.age.to_s+" years old"
         .page-header
           %h4= @child.first_name.to_s+"'s Favorites (#)"
         .page-header
