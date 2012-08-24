@@ -14,6 +14,7 @@
         .well
           %h2= @profile.name
           %h5= @profile.city.to_s+", "+@profile.country.to_s
+          %h5= "Join in "+@profile.user.created_at.to_date.to_s
         .page-header
           %h4
             = @profile.first_name.to_s+"'s Children"
