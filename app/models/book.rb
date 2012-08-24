@@ -19,7 +19,15 @@ class Book < ActiveRecord::Base
     @list
   end
 
+  def reviews_count
+    Review.count(:id, :conditions => ['book_id = ? AND details IS NOT NULL', self.id])
+  end
+
+  def ratings_count
+    Review.count(:rating, :conditions => ['book_id = ? AND rating IS NOT NULL', self.id])
+  end
+
   def average_rating
-    Review.average(:rating, :conditions => ['book_id = ?', self.id])
+    Review.average(:rating, :conditions => ['book_id = ? AND rating IS NOT NULL', self.id])
   end
 end

@@ -24,7 +24,8 @@
       .span6
         %h2
           = @book.title
-          %span.badge= @book.average_rating 
+          %span.badge= @book.average_rating
+          %small= "( #{@book.ratings_count} ratings)" 
         %h5= "by "+@book.authors_list
         %p= @book.publisher_resume
         .well
@@ -58,7 +59,8 @@
                 = "ISBN13: "+@book.isbn13
                 %br
     .page-header
-      %h3= "Book Reviews"
+      %h3
+        = "Book Reviews (#{@book.reviews_count})"
     - if @book.reviews.size != 0
       - @book.reviews.each do |review|
         %blockquote
