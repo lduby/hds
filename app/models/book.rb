@@ -5,8 +5,9 @@ class Book < ActiveRecord::Base
   has_many :shelves, :through => :reviews
   has_many :children, :through => :reviews
   has_and_belongs_to_many :authors
-  attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :min_age, :max_age, :publisher_resume, :cover_url
-
+  attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :min_age, :max_age, :publisher_resume, :cover
+  has_attached_file :cover, :styles => { :medium => "300x300>", :tiny => "128x128>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  
   def authors_list
     @list = "";
     authors.each do |a|

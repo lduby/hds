@@ -12,5 +12,5 @@
   - @shelf.books.each do |book|
     .span1
       %a{:href => book_path(book)}
-        %img{:src => book.cover_url}
+        = image_tag book.cover.url(:tiny)
   

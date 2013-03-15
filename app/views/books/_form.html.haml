@@ -1,4 +1,4 @@
-= form_for(@book) do |f|
+= form_for @book, :html => { :multipart => true } do |f|
   %dl.dl-horizontal
     .field
       %dt= f.label :title
@@ -48,8 +48,8 @@
       %dt= f.label :publisher_resume
       %dd= f.text_area :publisher_resume
     .field
-      %dt= f.label :cover_url
-      %dd= f.text_field :cover_url
+      %dt= f.label :cover
+      %dd= f.file_field :cover 
 
   .actions
     = f.submit

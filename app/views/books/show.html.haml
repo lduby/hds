@@ -4,7 +4,7 @@
     .row
       .span2
         .thumbnail
-          %img{:src => @book.cover_url}
+          = image_tag @book.cover.url(:medium)
         - if user_signed_in?
           %p 
             My rating
