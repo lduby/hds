@@ -17,12 +17,12 @@
     - if @all_shelves_books.size == 0
       %p No books found in the library.
     - else 
-      %ul.thumbnails
-      - @all_shelves_books.each do |book|
-        %li.span1
-          .thumbnail
-            %a{:href => book_path(book)}
-              %img{:src => book.cover_url}
+      %ul.thumbnails{:id => "grid"}
+        - @all_shelves_books.each do |book|
+          %li
+            .thumbnail
+              %a{:href => book_path(book)}
+                = image_tag(book.cover.url(:tiny))
 
 %br
 
