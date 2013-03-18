@@ -7,6 +7,11 @@ gem 'rails', '3.2.12'
 
 gem 'sqlite3'
 
+# Virer les logs concernant les assets
+group :development do
+  gem "quiet_assets", ">= 1.0.1"
+end
+
 
 # Gems used only for assets and not required
 # in production environments by default.
