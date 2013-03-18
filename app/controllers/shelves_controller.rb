@@ -1,4 +1,6 @@
 class ShelvesController < ApplicationController
+  
+  respond_to :html, :xml, :json
   # GET /shelves
   # GET /shelves.json
   def index
@@ -19,11 +21,37 @@ class ShelvesController < ApplicationController
         end
       end
     end
+    respond_with(@shelves)
+  end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @shelves }
+  def list
+    @shelves = current_user.profile.shelves
+    @all_shelves_books = Array.new
+    if !@shelves.empty?
+      @shelves.each do |shelf|
+        if !shelf.books.empty?
+          shelf.books.each do |book|
+            @all_shelves_books << book
+          end
+        end
+      end
     end
+    render :layout => false
+  end
+
+  def gridlist
+    @shelves = current_user.profile.shelves
+    @all_shelves_books = Array.new
+    if !@shelves.empty?
+      @shelves.each do |shelf|
+        if !shelf.books.empty?
+          shelf.books.each do |book|
+            @all_shelves_books << book
+          end
+        end
+      end
+    end
+    render :layout => false
   end
 
   # GET /shelves/1

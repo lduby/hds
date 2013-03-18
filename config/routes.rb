@@ -5,6 +5,8 @@ Hds::Application.routes.draw do
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
   get 'profiles/search_followable_users'
+  get 'shelves/list'
+  get 'shelves/gridlist'
 
   devise_for :users  
   resources :users do

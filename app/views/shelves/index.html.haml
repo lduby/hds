@@ -1,5 +1,33 @@
+%script{:type => "text/javascript"}
+  :plain
+  
+    $(document).ready(function() { 
+      $(".nav-list a").displayWithAjax("#shelves_details");
+      $("#listview").click(
+        function () { 
+          $('#gridview').removeClass("active"); 
+          hide_load_and_show_div("#shelves_details","/shelves/list");
+          $('#listview').addClass("active");
+          // Empecher l'action par défaut du bouton submit 
+          return false;
+      });
+      $("#gridview").click(
+        function () { 
+          $('#listview').removeClass("active"); 
+          hide_load_and_show_div("#shelves_details","/shelves/gridlist");
+          $('#gridview').addClass("active");
+          // Empecher l'action par défaut du bouton submit 
+          return false;
+      });
+    });
 %br
-%h1 My Library
+%h1 
+  My Library
+  .btn-group.pull-right
+    #gridview.btn.active
+      %i.icon-th
+    #listview.btn
+      %i.icon-th-list
 %br
 .row
   .span4
@@ -14,23 +42,8 @@
             - if !['to_read','read','currently_reading'].include?(shelf.name)
               = link_to '', shelf, :confirm => 'Are you sure?', :method => :delete, :class => 'icon-remove pull-right'
   #shelves_details.span8
-    - if @all_shelves_books.size == 0
-      %p No books found in the library.
-    - else 
-      %ul.thumbnails{:id => "grid"}
-        - @all_shelves_books.each do |book|
-          %li
-            .thumbnail
-              %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:tiny))
+    = render 'covers_grid'
 
 %br
 
 = link_to 'New Shelf', new_profile_shelf_path
-
-%script{:type => "text/javascript"}
-  :plain
-  
-    $(document).ready(function() { 
-      $(".nav-list a").displayWithAjax("#shelves_details");
-    });

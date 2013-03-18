@@ -42,3 +42,10 @@ jQuery.fn.displayWithAjax = function(location) {
   })
   return this;
 };
+
+function hide_load_and_show_div(divname,url) {
+  $(divname).hide();
+  $(divname).load(url, function() {
+      $(this).show('slow');
+  });
+}
