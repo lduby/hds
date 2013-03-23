@@ -3,6 +3,7 @@ class AuthorsController < ApplicationController
   # GET /authors.json
   def index
     @authors = Author.all
+    @new_author = Author.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,13 +42,13 @@ class AuthorsController < ApplicationController
   # POST /authors.json
   def create
     @author = Author.new(params[:author])
-
+   
     respond_to do |format|
       if @author.save
-        format.html { redirect_to @author, notice: 'Author was successfully created.' }
-        format.json { render json: @author, status: :created, location: @author }
+        format.html { redirect_to '/authors', notice: 'Author was successfully created.' }
+        format.json { render json: @author, status: :created, location: @authors }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to '/authors', errors: 'Author could not be created.' }
         format.json { render json: @author.errors, status: :unprocessable_entity }
       end
     end

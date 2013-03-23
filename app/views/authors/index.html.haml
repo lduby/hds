@@ -7,6 +7,12 @@
     });
 
 %h1 Authors
+#new_author.pull-right
+  = form_for @new_author, :html => {:class => "form-inline", :id => "new_author_form"} do |f|
+    %strong New:
+    = f.text_field :last_name, :placeholder => "Author Last Name"
+    = f.text_field :first_name, :placeholder => "Author First Name" 
+    = f.submit
 %small NB: Double-click on a name to edit it
 %br
 %br
@@ -23,4 +29,3 @@
 
 %br
 
-= link_to 'New Author', new_author_path
