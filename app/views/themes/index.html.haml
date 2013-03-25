@@ -1,0 +1,33 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
+%h1 Themes
+#new_theme.pull-right
+  = form_for @new_theme, :html => {:class => "form-inline", :id => "new_theme_form"} do |f|
+    %strong New:
+    = f.text_field :name, :placeholder => "Theme Name"
+    = f.text_field :description, :placeholder => "Short description" 
+    = f.submit
+%small NB: Double-click on a name/description to edit it
+%br
+%br
+%table.table.table-striped.table-hover.table-condensed
+  %tr
+    %th Name
+    %th Description
+    %th Actions
+  - @themes.each do |theme|
+    %tr
+      %td= best_in_place theme, :name, :type => :input
+      %td= best_in_place theme, :description, :type => :input
+      %td
+        = link_to 'Details', theme, :class => 'btn btn-mini'
+        = link_to 'Destroy', theme, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+

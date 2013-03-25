@@ -1,0 +1,33 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
+%h1 Categories
+#new_category.pull-right
+  = form_for @new_category, :html => {:class => "form-inline", :id => "new_category_form"} do |f|
+    %strong New:
+    = f.text_field :name, :placeholder => "Category Name"
+    = f.text_field :description, :placeholder => "Short Description" 
+    = f.submit
+%small NB: Double-click on a name/description to edit it
+%br
+%br
+%table.table.table-striped.table-hover.table-condensed
+  %tr
+    %th Name
+    %th Description
+    %th Actions
+  - @categories.each do |category|
+    %tr
+      %td= best_in_place category, :name, :type => :input
+      %td= best_in_place category, :description, :type => :input
+      %td
+        = link_to 'Details', category, :class => 'btn btn-mini'
+        = link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+

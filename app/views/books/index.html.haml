@@ -9,16 +9,15 @@
   .span2
     .well{:style => "padding: 8px 0;"}
       %ul.nav.nav-list{:id => "filters"}
-        %li.nav-header Age
+        %li.nav-header 
+          Reader
+        - @categories.each do |category|
+          %li
+            %a{:href => "#{}"}= category.name + " (" + category.books.size.to_s + ")"
         %li.nav-header Themes
-        %li 
-          %a{:href => "#"} Rituel Coucher
-        %li 
-          %a{:href => "#"} Pot
-        %li 
-          %a{:href => "#"} Colère
-        %li 
-          %a{:href => "#"} Arrivée d'un bébé
+        - @themes.each do |theme|
+          %li
+            %a{:href => "#{}"}= theme.name + " (" + theme.books.size.to_s + ")"
         %li.nav-header Tags
         %li panda
         %li educatif

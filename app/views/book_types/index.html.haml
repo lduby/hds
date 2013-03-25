@@ -1,0 +1,33 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
+%h1 Book Types
+#new_book_type.pull-right
+  = form_for @new_book_type, :html => {:class => "form-inline", :id => "new_book_type_form"} do |f|
+    %strong New:
+    = f.text_field :name, :placeholder => "Book Type Name"
+    = f.text_field :description, :placeholder => "Short description" 
+    = f.submit
+%small NB: Double-click on a name/description to edit it
+%br
+%br
+%table.table.table-striped.table-hover.table-condensed
+  %tr
+    %th Name
+    %th Description
+    %th Actions
+  - @book_types.each do |book_type|
+    %tr
+      %td= best_in_place book_type, :name, :type => :input
+      %td= best_in_place book_type, :description, :type => :input
+      %td
+        = link_to 'Details', book_type, :class => 'btn btn-mini'
+        = link_to 'Destroy', book_type, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+

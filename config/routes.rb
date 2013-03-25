@@ -25,6 +25,9 @@ Hds::Application.routes.draw do
   resources :authors
   resources :illustrators
   resources :collections
+  resources :categories
+  resources :book_types
+  resources :themes
   resources :books do 
     resources :reviews, :name_prefix => "book_"
   end

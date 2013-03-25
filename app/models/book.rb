@@ -1,9 +1,12 @@
 class Book < ActiveRecord::Base
   belongs_to :publisher 
   belongs_to :collection
+  belongs_to :category
+  belongs_to :type
   has_many :reviews
   has_many :shelves, :through => :reviews
   has_many :children, :through => :reviews
+  has_and_belongs_to_many :themes
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :illustrators
   attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :min_age, :max_age, :publisher_resume, :cover

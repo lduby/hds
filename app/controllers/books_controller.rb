@@ -3,6 +3,9 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    @categories = Category.all
+    @themes = Theme.all
+    @book_types = BookType.all
 
     respond_to do |format|
       format.html # index.html.erb
