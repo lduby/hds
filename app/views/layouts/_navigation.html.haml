@@ -35,9 +35,11 @@
               %b.caret
             %ul.dropdown-menu
               %li
-                = link_to('Publishers', publishers_path)
-              %li
                 = link_to('Authors', authors_path)
+              %li
+                = link_to('Illustrators', illustrators_path)
+              %li
+                = link_to('Publishers', publishers_path)
               %li
                 = link_to('Collections', collections_path)
     - if current_user.is? :admin

@@ -23,6 +23,7 @@ Hds::Application.routes.draw do
     resources :collections
   end
   resources :authors
+  resources :illustrators
   resources :collections
   resources :books do 
     resources :reviews, :name_prefix => "book_"

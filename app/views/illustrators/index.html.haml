@@ -1,0 +1,33 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
+%h1 Illustrators
+#new_illustrator.pull-right
+  = form_for @new_illustrator, :html => {:class => "form-inline", :id => "new_illustrator_form"} do |f|
+    %strong New:
+    = f.text_field :last_name, :placeholder => "Illustrator Last Name"
+    = f.text_field :first_name, :placeholder => "Illustrator First Name" 
+    = f.submit
+%small NB: Double-click on a name to edit it
+%br
+%br
+%table.table.table-striped.table-hover.table-condensed
+  %tr
+    %th Last Name
+    %th First Name
+    %th Actions
+  - @illustrators.each do |illustrator|
+    %tr
+      %td= best_in_place illustrator, :last_name, :type => :input
+      %td= best_in_place illustrator, :first_name, :type => :input
+      %td
+        = link_to 'Details', illustrator, :class => 'btn btn-mini'
+        = link_to 'Destroy', illustrator, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+
+%br
+

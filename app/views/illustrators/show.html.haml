@@ -1,0 +1,14 @@
+%br
+%h1= @illustrator.name
+%br
+.page-header
+  %strong Bibliography
+- if @illustrator.books.size == 0
+  %p= "No books found for "+@illustrator.name+"."
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @illustrator.books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))
