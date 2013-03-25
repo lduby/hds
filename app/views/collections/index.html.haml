@@ -1,6 +1,23 @@
-%h1 Collections
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
 %br
-%table.table.table-striped.table-condensed
+%h1 Collections
+#new_collection.pull-right
+  = form_for @new_collection, :html => {:class => "form-inline", :id => "new_collection_form"} do |f|
+    %strong New:
+    = f.text_field :name, :placeholder => "Collection Name"
+    = select_tag(:publisher_id, options_for_select(Publisher.all.collect {|p| [p.name, p.id]}))
+    = f.submit 
+%small NB: Double-click on a field to edit it
+%br
+%br
+%table.table.table-hover.table-striped.table-condensed
   %thead
     %tr
       %th Name
@@ -9,11 +26,9 @@
   %tbody
   - @collections.each do |collection|
     %tr
-      %td= link_to collection.name, collection
-      %td= link_to collection.publisher.name, collection.publisher
+      %td= best_in_place collection, :name, :type => :input
+      %td= best_in_place collection, :publisher_id, :type => :select, :collection => Publisher.all.collect {|p| [p.id, p.name]}
       %td
-        %a.btn.btn-mini{:href => edit_collection_path(collection)}
-          %i.icon-pencil
-            Edit
+        = link_to 'Details', collection, :class => 'btn btn-mini'
         = link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
 

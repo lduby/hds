@@ -1,6 +1,18 @@
-%p#notice= notice
-%p= 'Name: '+@collection.name
-
-= link_to 'Edit', edit_collection_path(@collection)
-\|
-= link_to 'Back', collections_path
+%br
+%h1= @collection.name
+%br
+.page-header
+  %strong Publisher
+= link_to @collection.publisher.name, @collection.publisher
+%br
+.page-header
+  %strong Bibliography
+- if @collection.books.size == 0
+  %p= "No books found for "+@collection.name+"."
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @collection.books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))

@@ -1,29 +1,35 @@
-%p#notice= notice
+%br
 %h1= @publisher.name
-.well
-  - if @publisher.collections.size == 0
-    %b No collections found.
-  - else
-    %b Collections:
-  %table
+#new_publisher_collection.pull-right
+  = form_for [@publisher, @publisher.collections.build], :html => {:class => "form-inline", :id => "new_publisher_collection_form"} do |f|
+    %strong New collection:
+    = f.text_field :name, :placeholder => "Collection Name"
+    = f.submit 
+%br
+.page-header
+  %h5 Collections
+- if @publisher.collections.size == 0
+  %b No collections found.
+- else
+  %table.table.table-hover.table-striped.table-condensed
+    %tr
+      %th Name
+      %th Actions
     - @publisher.collections.each do |collection|
       %tr
-        %td= link_to collection.name, collection
+        %td= best_in_place collection, :name, :type => :input
         %td
-          %a.btn.btn-mini{:href => edit_collection_path(collection)}
-            %i.icon-pencil
-              Edit
-        %td
+          = link_to 'Details', collection, :class => 'btn btn-mini'
           = link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
-%h2 Add a collection:
-= form_for([@publisher, @publisher.collections.build]) do |f|
-  %dl.dl-horizontal
-    .field
-      %dt= f.label 'Collection Name'
-      %dd= f.text_field :name
-  .actions
-    = f.submit
-
-= link_to 'Edit', edit_publisher_path(@publisher)
-\|
-= link_to 'Back', publishers_path
+%br
+.page-header
+  %h5 Bibliography
+- if @publisher.books.size == 0
+  %p= "No books found for "+@publisher.name+"."
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @publisher.books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))
