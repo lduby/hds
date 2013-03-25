@@ -1,15 +1,29 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      jQuery(".best_in_place").best_in_place(); 
+    });
+
 %h1 Publishers
+#new_publisher.pull-right
+  = form_for @new_publisher, :html => {:class => "form-inline", :id => "new_publisher_form"} do |f|
+    %strong New:
+    = f.text_field :name, :placeholder => "Publisher Name"
+    = f.submit 
+%small NB: Double-click on a name to edit it
 %br
-%table.table.table-striped.table-condensed
+%br
+%table.table.table-hover.table-striped.table-condensed
+  %tr
+    %th Name
+    %th Actions 
   - @publishers.each do |publisher|
     %tr
-      %td= link_to publisher.name, publisher
+      %td= best_in_place publisher, :name, :type => :input 
       %td
-        %a.btn.btn-mini{:href => edit_publisher_path(publisher)}
-          %i.icon-pencil
-            Edit
+        = link_to 'Details', publisher, :class => 'btn btn-mini'
         = link_to 'Destroy', publisher, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
 
 %br
-
-= link_to 'New Publisher', new_publisher_path

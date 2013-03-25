@@ -3,6 +3,7 @@ class PublishersController < ApplicationController
   # GET /publishers.json
   def index
     @publishers = Publisher.all
+    @new_publisher = Publisher.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,10 +45,10 @@ class PublishersController < ApplicationController
 
     respond_to do |format|
       if @publisher.save
-        format.html { redirect_to @publisher, notice: 'Publisher was successfully created.' }
+        format.html { redirect_to "/publishers", notice: 'Publisher was successfully created.' }
         format.json { render json: @publisher, status: :created, location: @publisher }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to "/publishers", errors: 'Publisher could not be created.' }
         format.json { render json: @publisher.errors, status: :unprocessable_entity }
       end
     end
