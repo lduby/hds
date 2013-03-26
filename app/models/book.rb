@@ -24,6 +24,18 @@ class Book < ActiveRecord::Base
     @list
   end
 
+  def illustrators_list
+    @list = "";
+    illustrators.each do |i|
+      if i == illustrators.first
+        @list << "#{i.name}"
+      else 
+        @list << ", #{i.name}"
+      end
+    end
+    @list
+  end
+
   def reviews_count
     Review.count(:id, :conditions => ['book_id = ? AND details IS NOT NULL', self.id])
   end

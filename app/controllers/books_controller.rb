@@ -79,6 +79,35 @@ class BooksController < ApplicationController
         end
       end
     end
+    # Getting the selected illustrators
+    @book_illustrators = Array.new
+    logger.debug("params[:book][:illustrators]")
+    logger.debug(params[:book][:illustrators])
+    @illustrators_list = params[:book][:illustrators].split(", ");
+    logger.debug(@illustrators_list)
+    logger.debug(@illustrators_list.size)
+    if @illustrators_list.size != 0 
+      logger.debug("At least one illustrator has been selected")
+      @illustrators_list.each do |illustrator|
+        @splitted_illustrator = illustrator.split(" ")
+        @illus = illustrator.find_by_first_name_and_last_name(@splitted_illustrator[0],@splitted_illustrator[1])
+        if @illus.nil?
+          logger.debug("first illustrator does not exist => Creating one !")
+          @illus = Illustrator.new(:first_name => @splitted_illustrator[0], :last_name => @splitted_illustrator[1])
+          if @illus.save
+            logger.debug("illustrator successfully created")
+            logger.debug(@illus)
+            @book_illustrators << @auth
+          else 
+            logger.debug("error while creating illustrator")
+          end
+        else 
+          logger.debug("Illustrator found")
+          logger.debug("Adding the illustrator")
+          @book_illustrators << @illus
+        end
+      end
+    end
     params[:book].delete(:authors)
     # Getting the selected publisher
     logger.debug("params[:book][:publisher_id]")
@@ -111,6 +140,12 @@ class BooksController < ApplicationController
         if @book_authors.size != 0
           @book_authors.each do |author|
             @book.authors << author
+          end
+        end
+        # Associating the selected illustrators 
+        if @book_illustrators.size != 0
+          @book_illustrators.each do |illustrator|
+            @book.illustrators << illustrator
           end
         end
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -163,6 +198,42 @@ class BooksController < ApplicationController
     logger.debug("Authors to be added to book: ")
     logger.debug(@to_be_added_authors)
     params[:book].delete(:authors)
+    # Getting the selected illustrators
+    @book_illustrators = Array.new
+    logger.debug("params[:book][:illustrators]")
+    logger.debug(params[:book][:illustrators])
+    @illustrators_list = params[:book][:illustrators].split(", ");
+    logger.debug(@illustrators_list)
+    logger.debug(@illustrators_list.size)
+    if @illustrators_list.size != 0 
+      logger.debug("At least one illustrator has been selected")
+      @illustrators_list.each do |illustrator|
+        @splitted_illustrator = illustrator.split(" ")
+        @illus = Illustrator.find_by_first_name_and_last_name(@splitted_illustrator[0],@splitted_illustrator[1])
+        if @illus.nil?
+          logger.debug("first illustrator does not exist => Creating one !")
+          @illus = Illustrator.new(:first_name => @splitted_illustrator[0], :last_name => @splitted_illustrator[1])
+          if @illus.save
+            logger.debug("illustrator successfully created")
+            logger.debug(@illus)
+            @book_illustrators << @illus
+          else 
+            logger.debug("error while creating illustrator")
+          end
+        else 
+          logger.debug("Illustrator found")
+          logger.debug("Adding the illustrator")
+          @book_illustrators << @illus
+        end
+      end
+    end
+    @to_be_removed_illustrators = @book.illustrators - @book_illustrators
+    @to_be_added_illustrators = @book_illustrators - (@book.illustrators & @book_illustrators)
+    logger.debug("illustrators to be removed from book: ")
+    logger.debug(@to_be_removed_illustrators)
+    logger.debug("illustrators to be added to book: ")
+    logger.debug(@to_be_added_illustrators)
+    params[:book].delete(:illustrators)
     # Getting the selected publisher
     logger.debug("params[:book][:publisher_id]")
     logger.debug(params[:book][:publisher_id])
@@ -205,6 +276,18 @@ class BooksController < ApplicationController
             @book.authors.delete(oldauthor)
           end
         end
+        # Associating the newly selected illustrators
+        if @to_be_added_illustrators.size != 0
+          @to_be_added_illustrators.each do |book_illustrator|
+            @book.illustrators << book_illustrator
+          end
+        end
+        # Removing the unselected illustrators
+        if @to_be_removed_illustrators.size != 0
+          @to_be_removed_illustrators.each do |oldillustrator|
+            @book.illustrators.delete(oldillustrator)
+          end
+        end
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { head :no_content }
       else
@@ -240,6 +323,14 @@ class BooksController < ApplicationController
       @authorslist << author.name
     end
     render :json => @authorslist
+  end
+
+  def search_illustrators
+    @illustratorslist=Array.new
+    Illustrator.all.each do |illustrator|
+      @illustratorslist << illustrator.name
+    end
+    render :json => @illustratorslist
   end
   
 end

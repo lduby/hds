@@ -11,6 +11,13 @@
         - else
           %input.input-xlarge.search-query.typeahead{:name => "book[authors]", :value => @book.authors_list, :type => "text", :id => 'book_authors'}/
     .field
+      %dt= f.label "Illustrator(s)"
+      %dd
+        - if @book.illustrators.size == 0
+          %input.input-xlarge.search-query.typeahead{:name => "book[illustrators]", :placeholder => 'Illustrators', :type => "text", :id => 'book_illustrators'}/
+        - else
+          %input.input-xlarge.search-query.typeahead{:name => "book[illustrators]", :value => @book.illustrators_list, :type => "text", :id => 'book_illustrators'}/
+    .field
       %dt= f.label :publisher
       %dd
         - if @book.publisher.nil?

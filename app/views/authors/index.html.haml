@@ -25,7 +25,9 @@
     %tr
       %td= best_in_place author, :last_name, :type => :input
       %td= best_in_place author, :first_name, :type => :input
-      %td= link_to 'Destroy', author, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
+      %td
+        = link_to 'Details', author, :class => 'btn btn-mini'
+        = link_to 'Destroy', author, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
 
 %br
 
