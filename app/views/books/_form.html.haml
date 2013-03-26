@@ -26,8 +26,7 @@
           %input.search-query.span2.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
     .field
       %dt= f.label :published_at
-      %dd
-        %input{:type => "text", :id => "published_at_datepicker", :name => "published_at"}
+      %dd= f.date_select :published_at
     .field
       %dt= f.label :isbn10
       %dd= f.text_field :isbn10
