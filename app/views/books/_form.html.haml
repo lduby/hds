@@ -46,11 +46,8 @@
       %dt= f.label :price
       %dd= f.text_field :price
     .field
-      %dt= f.label :min_age
-      %dd= f.text_field :min_age
-    .field
-      %dt= f.label :max_age
-      %dd= f.text_field :max_age
+      %dt= f.label :category
+      %dd= f.collection_select(:category_id, Category.all, :id, :name)
     .field
       %dt= f.label :publisher_resume
       %dd= f.text_area :publisher_resume

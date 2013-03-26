@@ -79,6 +79,7 @@ class BooksController < ApplicationController
         end
       end
     end
+    params[:book].delete(:authors)
     # Getting the selected illustrators
     @book_illustrators = Array.new
     logger.debug("params[:book][:illustrators]")
@@ -108,7 +109,7 @@ class BooksController < ApplicationController
         end
       end
     end
-    params[:book].delete(:authors)
+    params[:book].delete(:illustrators)
     # Getting the selected publisher
     logger.debug("params[:book][:publisher_id]")
     logger.debug(params[:book][:publisher_id])
@@ -132,6 +133,7 @@ class BooksController < ApplicationController
       logger.debug("Setting up the publisher id")
       logger.debug(params[:book][:publisher_id])
     end
+    # Creating the book
     @book = Book.new(params[:book])
 
     respond_to do |format|

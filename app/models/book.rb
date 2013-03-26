@@ -9,7 +9,7 @@ class Book < ActiveRecord::Base
   has_and_belongs_to_many :themes
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :illustrators
-  attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :min_age, :max_age, :publisher_resume, :cover
+  attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :category_id, :publisher_resume, :cover
   has_attached_file :cover, :styles => { :medium => "300x300>", :tiny => "128x128>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   
   def authors_list
