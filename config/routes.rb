@@ -3,6 +3,7 @@ Hds::Application.routes.draw do
   get 'books/search_authors'
   get 'books/search_illustrators'
   get 'books/search_publishers'
+  get 'books/search_themes'
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
   get 'profiles/search_followable_users'
@@ -30,7 +31,9 @@ Hds::Application.routes.draw do
     get "list_books"
   end
   resources :book_types
-  resources :themes
+  resources :themes do 
+    get "list_books"
+  end
   resources :books do 
     resources :reviews, :name_prefix => "book_"
   end

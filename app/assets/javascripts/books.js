@@ -26,4 +26,13 @@ $(document).ready(function() {
         }
         $('#book_illustrators').typeahead({source: illus, mode: 'multiple', items:5});
     });
+  var thm=new Array(); // regular array (add an optional integer)
+  $.getJSON('/books/search_themes',function(data){
+         var i=0;
+         for(i=0;i<data.length;i++){
+            console.log(data[i]);
+            thm[i]=data[i];
+        }
+        $('#book_themes').typeahead({source: thm, mode: 'multiple', items:5});
+    });
 });

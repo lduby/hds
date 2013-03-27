@@ -98,7 +98,7 @@ class BooksController < ApplicationController
           if @illus.save
             logger.debug("illustrator successfully created")
             logger.debug(@illus)
-            @book_illustrators << @auth
+            @book_illustrators << @illus
           else 
             logger.debug("error while creating illustrator")
           end
@@ -133,6 +133,35 @@ class BooksController < ApplicationController
       logger.debug("Setting up the publisher id")
       logger.debug(params[:book][:publisher_id])
     end
+    # Getting the selected themes
+    @book_themes = Array.new
+    logger.debug("params[:book][:themes]")
+    logger.debug(params[:book][:themes])
+    @themes_list = params[:book][:themes].split(", ");
+    logger.debug(@themes_list)
+    logger.debug(@themes_list.size)
+    if @themes_list.size != 0 
+      logger.debug("At least one theme has been selected")
+      @themes_list.each do |theme|
+        @thm = Theme.find_by_name(theme)
+        if @thm.nil?
+          logger.debug("theme does not exist => Creating one !")
+          @thm = Theme.new(:name => theme)
+          if @thm.save
+            logger.debug("theme successfully created")
+            logger.debug(@thm)
+            @book_themes << @thm
+          else 
+            logger.debug("error while creating theme")
+          end
+        else 
+          logger.debug("Theme found")
+          logger.debug("Adding the theme")
+          @book_themes << @thm
+        end
+      end
+    end
+    params[:book].delete(:themes)
     # Creating the book
     @book = Book.new(params[:book])
 
@@ -148,6 +177,12 @@ class BooksController < ApplicationController
         if @book_illustrators.size != 0
           @book_illustrators.each do |illustrator|
             @book.illustrators << illustrator
+          end
+        end
+        # Associating the selected themes 
+        if @book_themes.size != 0
+          @book_themes.each do |theme|
+            @book.themes << theme
           end
         end
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -236,6 +271,41 @@ class BooksController < ApplicationController
     logger.debug("illustrators to be added to book: ")
     logger.debug(@to_be_added_illustrators)
     params[:book].delete(:illustrators)
+    # Getting the selected themes
+    @book_themes = Array.new
+    logger.debug("params[:book][:themes]")
+    logger.debug(params[:book][:themes])
+    @themes_list = params[:book][:themes].split(", ");
+    logger.debug(@themes_list)
+    logger.debug(@themes_list.size)
+    if @themes_list.size != 0 
+      logger.debug("At least one theme has been selected")
+      @themes_list.each do |theme|
+        @thm = Theme.find_by_name(theme)
+        if @thm.nil?
+          logger.debug("theme does not exist => Creating one !")
+          @thm = Theme.new(:name => theme)
+          if @thm.save
+            logger.debug("theme successfully created")
+            logger.debug(@thm)
+            @book_themes << @thm
+          else 
+            logger.debug("error while creating theme")
+          end
+        else 
+          logger.debug("Theme found")
+          logger.debug("Adding the theme")
+          @book_themes << @thm
+        end
+      end
+    end
+    @to_be_removed_themes = @book.themes - @book_themes
+    @to_be_added_themes = @book_themes - (@book.themes & @book_themes)
+    logger.debug("themes to be removed from book: ")
+    logger.debug(@to_be_removed_themes)
+    logger.debug("themes to be added to book: ")
+    logger.debug(@to_be_added_themes)
+    params[:book].delete(:themes)
     # Getting the selected publisher
     logger.debug("params[:book][:publisher_id]")
     logger.debug(params[:book][:publisher_id])
@@ -290,6 +360,18 @@ class BooksController < ApplicationController
             @book.illustrators.delete(oldillustrator)
           end
         end
+        # Associating the newly selected themes
+        if @to_be_added_themes.size != 0
+          @to_be_added_themes.each do |book_theme|
+            @book.themes << book_theme
+          end
+        end
+        # Removing the unselected themes
+        if @to_be_removed_themes.size != 0
+          @to_be_removed_themes.each do |oldtheme|
+            @book.themes.delete(oldtheme)
+          end
+        end
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { head :no_content }
       else
@@ -333,6 +415,14 @@ class BooksController < ApplicationController
       @illustratorslist << illustrator.name
     end
     render :json => @illustratorslist
+  end
+
+  def search_themes
+    @themeslist=Array.new
+    Theme.all.each do |theme|
+      @themeslist << theme.name
+    end
+    render :json => @themeslist
   end
   
 end

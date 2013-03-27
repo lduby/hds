@@ -9,6 +9,13 @@
           hide_load_and_show_div("#results","/categories/"+$(this).attr("id")+"/list_books");
         }
       ); 
+      /* Setting themes links */
+      $(".theme a").click(
+        function (event) {
+          event.preventDefault();
+          hide_load_and_show_div("#results","/themes/"+$(this).attr("id")+"/list_books");
+        }
+      ); 
     });
 
 %br
@@ -30,7 +37,7 @@
         %li.nav-header Themes
         - @themes.each do |theme|
           %li.theme
-            %a{:href => "#{}"}= theme.name + " (" + theme.books.size.to_s + ")"
+            %a{:id => "#{theme.id}", :href => "#{}"}= theme.name + " (" + theme.books.size.to_s + ")"
         %li.nav-header Tags
         %li panda
         %li educatif

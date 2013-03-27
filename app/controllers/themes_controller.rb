@@ -81,4 +81,10 @@ class ThemesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def list_books
+    @theme = Theme.find(params['theme_id'])
+    @theme_books = @theme.books
+    render :layout => false
+  end
 end

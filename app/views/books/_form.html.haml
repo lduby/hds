@@ -49,6 +49,13 @@
       %dt= f.label :category
       %dd= f.collection_select(:category_id, Category.all, :id, :name)
     .field
+      %dt= f.label "Theme(s)"
+      %dd
+        - if @book.themes.size == 0
+          %input.input-xlarge.search-query.typeahead{:name => "book[themes]", :placeholder => 'Themes', :type => "text", :id => 'book_themes'}/
+        - else
+          %input.input-xlarge.search-query.typeahead{:name => "book[themes]", :value => @book.themes_list, :type => "text", :id => 'book_themes'}/
+    .field
       %dt= f.label :publisher_resume
       %dd= f.text_area :publisher_resume
     .field
