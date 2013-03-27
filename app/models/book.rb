@@ -36,6 +36,18 @@ class Book < ActiveRecord::Base
     @list
   end
 
+  def themes_list
+    @list = "";
+    themes.each do |t|
+      if t == themes.first
+        @list << "#{t.name}"
+      else 
+        @list << ", #{t.name}"
+      end
+    end
+    @list
+  end
+
   def reviews_count
     Review.count(:id, :conditions => ['book_id = ? AND details IS NOT NULL', self.id])
   end
