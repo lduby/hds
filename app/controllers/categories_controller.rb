@@ -81,4 +81,10 @@ class CategoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def list_books
+    @category = Category.find(params['category_id'])
+    @category_books = @category.books
+    render :layout => false
+  end
 end

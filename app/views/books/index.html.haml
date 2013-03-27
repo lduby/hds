@@ -1,3 +1,16 @@
+%script{:type => "text/javascript"}
+  :plain 
+
+    $(document).ready(function() {
+      /* Setting category links */
+      $(".category a").click(
+        function (event) {
+          event.preventDefault();
+          hide_load_and_show_div("#results","/categories/"+$(this).attr("id")+"/list_books");
+        }
+      ); 
+    });
+
 %br
 %h1 
   Books
@@ -12,11 +25,11 @@
         %li.nav-header 
           Reader
         - @categories.each do |category|
-          %li
-            %a{:href => "#{}"}= category.name + " (" + category.books.size.to_s + ")"
+          %li.category
+            %a{:id => "#{category.id}", :href => "#{}"}= category.name + " (" + category.books.size.to_s + ")"
         %li.nav-header Themes
         - @themes.each do |theme|
-          %li
+          %li.theme
             %a{:href => "#{}"}= theme.name + " (" + theme.books.size.to_s + ")"
         %li.nav-header Tags
         %li panda

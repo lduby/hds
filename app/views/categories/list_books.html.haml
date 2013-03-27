@@ -1,0 +1,9 @@
+- if @category_books.size == 0
+  %p= "No books found for "+@category.name+"."
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @category_books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))

@@ -26,7 +26,9 @@ Hds::Application.routes.draw do
   resources :authors
   resources :illustrators
   resources :collections
-  resources :categories
+  resources :categories do
+    get "list_books"
+  end
   resources :book_types
   resources :themes
   resources :books do 
