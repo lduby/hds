@@ -1,66 +1,63 @@
 = form_for @book, :html => { :multipart => true } do |f|
-  %dl.dl-horizontal
-    .field
-      %dt= f.label :title
-      %dd= f.text_field :title
-    .field
-      %dt= f.label "Author(s)"
-      %dd
+  .row-fluid
+    .span2
+      .field
+        = f.file_field :cover, :type => 'hidden'
+    .span6
+      .field 
+        = f.text_field :title, :placeholder => 'Title',  :class => 'input-block-level'
+      .field
         - if @book.authors.size == 0
-          %input.input-xlarge.search-query.typeahead{:name => "book[authors]", :placeholder => 'Authors', :type => "text", :id => 'book_authors'}/
+          %input.input-block-level.search-query.typeahead{:name => "book[authors]", :placeholder => 'Authors', :type => "text", :id => 'book_authors'}/
         - else
-          %input.input-xlarge.search-query.typeahead{:name => "book[authors]", :value => @book.authors_list, :type => "text", :id => 'book_authors'}/
-    .field
-      %dt= f.label "Illustrator(s)"
-      %dd
+          %input.input-block-level.search-query.typeahead{:name => "book[authors]", :value => @book.authors_list, :type => "text", :id => 'book_authors'}/
+      .field
         - if @book.illustrators.size == 0
-          %input.input-xlarge.search-query.typeahead{:name => "book[illustrators]", :placeholder => 'Illustrators', :type => "text", :id => 'book_illustrators'}/
+          %input.input-block-level.search-query.typeahead{:name => "book[illustrators]", :placeholder => 'Illustrators', :type => "text", :id => 'book_illustrators'}/
         - else
-          %input.input-xlarge.search-query.typeahead{:name => "book[illustrators]", :value => @book.illustrators_list, :type => "text", :id => 'book_illustrators'}/
+          %input.input-block-level.search-query.typeahead{:name => "book[illustrators]", :value => @book.illustrators_list, :type => "text", :id => 'book_illustrators'}/
+      .row-fluid
+        .span6
+          .field
+            - if @book.publisher.nil?
+              %input.input-large.search-query.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text", :id => 'book_publisher'}/
+            - else
+              %input.input-large.search-query.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
+        .span6 
+          .field
+            = f.text_field :published_at, :placeholder => 'Published Date YYYY/MM/DD'
+    .span4
+      .field 
+        = f.text_field :isbn10, :placeholder => 'ISBN10'
+      .field 
+        = f.text_field :isbn13, :placeholder => 'ISBN13'
+      .row-fluid
+        .span6
+          .field
+            = f.text_field :page_count, :placeholder => '# Pages', :class => 'input-block-level'
+        .span6
+          .field
+            = f.text_field :price, :placeholder => 'Price', :class => 'input-block-level'
+      .field
+        = f.text_field :edition_language, :placeholder => 'Edition language'
+  .row-fluid
     .field
-      %dt= f.label :publisher
-      %dd
-        - if @book.publisher.nil?
-          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text", :id => 'book_publisher'}/
-        - else
-          %input.search-query.span2.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
-    .field
-      %dt= f.label :published_at
-      %dd= f.date_select :published_at
-    .field
-      %dt= f.label :isbn10
-      %dd= f.text_field :isbn10
-    .field
-      %dt= f.label :isbn13
-      %dd= f.text_field :isbn13
-    .field
-      %dt= f.label :page_count
-      %dd= f.text_field :page_count
-    .field
-      %dt= f.label :edition_language
-      %dd= f.text_field :edition_language
-    .field
-      %dt= f.label :original_title
-      %dd= f.text_field :original_title
-    .field
-      %dt= f.label :price
-      %dd= f.text_field :price
-    .field
-      %dt= f.label :category
-      %dd= f.collection_select(:category_id, Category.all, :id, :name)
-    .field
-      %dt= f.label "Theme(s)"
-      %dd
+      = f.label 'Tags'
+      %input.input-block-level{:type => 'textarea', :rows => '2'}
+  .row-fluid
+    .span8
+      .field
+        = f.label :publisher_resume
+        = f.text_area :publisher_resume, :rows => '5', :class => 'input-block-level'
+    .span4
+      .field
+        = f.label :category
+        = f.collection_select(:category_id, Category.all, :id, :name)
+      .field
         - if @book.themes.size == 0
           %input.input-xlarge.search-query.typeahead{:name => "book[themes]", :placeholder => 'Themes', :type => "text", :id => 'book_themes'}/
         - else
-          %input.input-xlarge.search-query.typeahead{:name => "book[themes]", :value => @book.themes_list, :type => "text", :id => 'book_themes'}/
-    .field
-      %dt= f.label :publisher_resume
-      %dd= f.text_area :publisher_resume
-    .field
-      %dt= f.label :cover
-      %dd= f.file_field :cover 
-
-  .actions
-    = f.submit
+          %input.input-xlarge.search-query.typeahead{:name => "book[themes]", :value => @book.themes_list, :type => "text", :id => 'book_themes'}/  
+  .row-fluid
+    .actions
+      = f.submit
