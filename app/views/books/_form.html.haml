@@ -25,7 +25,7 @@
               %input.input-large.search-query.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
         .span6 
           .field
-            = f.text_field :published_at, :placeholder => 'Published Date YYYY/MM/DD'
+            %input{:type => "text", :id => "published_at_datepicker", :name => "published_at", :placeholder => 'Publication Date'} 
     .span4
       .field 
         = f.text_field :isbn10, :placeholder => 'ISBN10'
