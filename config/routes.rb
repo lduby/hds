@@ -4,6 +4,7 @@ Hds::Application.routes.draw do
   get 'books/search_illustrators'
   get 'books/search_publishers'
   get 'books/search_themes'
+  post 'books/search_tags'
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
   get 'profiles/search_followable_users'

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
+  acts_as_tagger
   has_one :profile, :dependent => :destroy
   ROLES = %w[superuser admin manager banned]
   # Include default devise modules. Others available are:

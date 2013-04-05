@@ -11,7 +11,9 @@ class Book < ActiveRecord::Base
   has_and_belongs_to_many :illustrators
   attr_accessible :title, :publisher_id, :published_at, :collection_id, :isbn10, :isbn13, :page_count, :edition_language, :original_title, :price, :category_id, :publisher_resume, :cover
   has_attached_file :cover, :default_url => "/images/medium/missing.png", :styles => { :medium => "300x300>", :tiny => "128x128>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
-  
+  acts_as_taggable
+  acts_as_taggable_on :tags
+
   def authors_list
     @list = "";
     authors.each do |a|

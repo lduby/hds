@@ -2,7 +2,9 @@
   .row-fluid
     .span2
       .field
-        = f.file_field :cover, :type => 'hidden'
+        .thumbnail
+          = image_tag @book.cover.url(:medium)
+        = f.file_field :cover, :class => 'input-small'
     .span6
       .field 
         = f.text_field :title, :placeholder => 'Title',  :class => 'input-block-level'
@@ -43,7 +45,7 @@
   .row-fluid
     .field
       = f.label 'Tags'
-      %input.input-block-level{:type => 'textarea', :rows => '2'}
+      %input.input-block-level.search-query.typeahead{:type => 'text', :id => 'tags', :name => "book[tags]"}
   .row-fluid
     .span8
       .field

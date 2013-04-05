@@ -7,6 +7,11 @@
         changeYear: true,
         dateFormat: "yy-mm-dd"
       });
+      $("#tags").magicSuggest({
+        name: "book[tags]",
+        resultAsString: true,
+        data: "/books/search_tags"
+      });
     });
    
 %h1 New book

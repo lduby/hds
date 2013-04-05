@@ -91,7 +91,7 @@ class BooksController < ApplicationController
       logger.debug("At least one illustrator has been selected")
       @illustrators_list.each do |illustrator|
         @splitted_illustrator = illustrator.split(" ")
-        @illus = illustrator.find_by_first_name_and_last_name(@splitted_illustrator[0],@splitted_illustrator[1])
+        @illus = Illustrator.find_by_first_name_and_last_name(@splitted_illustrator[0],@splitted_illustrator[1])
         if @illus.nil?
           logger.debug("first illustrator does not exist => Creating one !")
           @illus = Illustrator.new(:first_name => @splitted_illustrator[0], :last_name => @splitted_illustrator[1])
@@ -133,11 +133,17 @@ class BooksController < ApplicationController
       logger.debug("Setting up the publisher id")
       logger.debug(params[:book][:publisher_id])
     end
+    # Getting the selected tags
+    logger.debug("params[:book][:tags]")
+    logger.debug(params[:book][:tags])
+    @tags_list = params[:book][:tags].delete("[").delete("\"").delete("]")
+    logger.debug(@tags_list)
+    params[:book].delete(:tags)
     # Getting the selected themes
     @book_themes = Array.new
     logger.debug("params[:book][:themes]")
     logger.debug(params[:book][:themes])
-    @themes_list = params[:book][:themes].split(", ");
+    @themes_list = params[:book][:themes].split(", ")
     logger.debug(@themes_list)
     logger.debug(@themes_list.size)
     if @themes_list.size != 0 
@@ -167,6 +173,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
+        @msg = 'Book was successfully created'
         # Associating the selected authors 
         if @book_authors.size != 0
           @book_authors.each do |author|
@@ -179,13 +186,22 @@ class BooksController < ApplicationController
             @book.illustrators << illustrator
           end
         end
+        # Associating the selected tags 
+        if !@tags_list.nil?
+          @book.tag_list = @tags_list
+          if @book.save
+            @msg << " and tagged"
+          else 
+            @msg << " but not tagged"
+          end
+        end
         # Associating the selected themes 
         if @book_themes.size != 0
           @book_themes.each do |theme|
             @book.themes << theme
           end
         end
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.html { redirect_to @book, notice: @msg }
         format.json { render json: @book, status: :created, location: @book }
       else
         format.html { render action: "new" }
@@ -423,6 +439,11 @@ class BooksController < ApplicationController
       @themeslist << theme.name
     end
     render :json => @themeslist
+  end
+
+  def search_tags
+    @tags = Book.tag_counts_on(:tags)
+    render :json => @tags
   end
   
 end
