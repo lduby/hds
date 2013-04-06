@@ -136,7 +136,9 @@ class BooksController < ApplicationController
     # Getting the selected tags
     logger.debug("params[:book][:tags]")
     logger.debug(params[:book][:tags])
-    @tags_list = params[:book][:tags].delete("[").delete("\"").delete("]")
+    if params[:book][:tags] 
+      @tags_list = params[:book][:tags].delete("[").delete("\"").delete("]")
+    end
     logger.debug(@tags_list)
     params[:book].delete(:tags)
     # Getting the selected themes
