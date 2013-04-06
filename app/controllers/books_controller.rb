@@ -289,6 +289,12 @@ class BooksController < ApplicationController
     logger.debug("illustrators to be added to book: ")
     logger.debug(@to_be_added_illustrators)
     params[:book].delete(:illustrators)
+    # tags
+    if params[:book][:tags] 
+      @tags_list = params[:book][:tags].delete("[").delete("\"").delete("]")
+    end
+    logger.debug(@tags_list)
+    params[:book].delete(:tags)
     # Getting the selected themes
     @book_themes = Array.new
     logger.debug("params[:book][:themes]")
@@ -376,6 +382,15 @@ class BooksController < ApplicationController
         if @to_be_removed_illustrators.size != 0
           @to_be_removed_illustrators.each do |oldillustrator|
             @book.illustrators.delete(oldillustrator)
+          end
+        end
+	# Associating the selected tags 
+        if !@tags_list.nil?
+          @book.tag_list = @tags_list
+          if @book.save
+            logger.debug "Book tagged"
+          else 
+            logger.debug "Book not tagged"
           end
         end
         # Associating the newly selected themes
