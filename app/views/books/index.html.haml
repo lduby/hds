@@ -54,7 +54,8 @@
               %a{:href => book_path(book)}
                 %img{:src => book.cover_url}
               .caption
-                %h5= book.title
+                %h5
+                  =link_to book.title, book_path(book)
                 %small= book.authors_list
                 %br
                 %a.btn.btn-mini{:href => edit_book_path(book)}
