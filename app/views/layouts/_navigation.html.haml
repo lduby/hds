@@ -23,7 +23,16 @@
 %ul.nav
   - if user_signed_in?
     %li
-      = link_to 'Books', books_path
+      %ul.nav
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Books
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              = link_to('Search', books_path)
+            %li
+              = link_to "New", new_book_path
     %li
       = link_to 'My Library', profile_shelves_path(current_user.profile)
     - if current_user.is? :manager
