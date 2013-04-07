@@ -13,6 +13,8 @@ class Book < ActiveRecord::Base
   has_attached_file :cover, :default_url => "/images/medium/missing.png", :styles => { :medium => "300x300>", :tiny => "128x128>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   acts_as_taggable
   acts_as_taggable_on :tags
+  scope :by_creation_date, order("created_at DESC")
+  
 
   def authors_list
     @list = "";

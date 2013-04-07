@@ -38,11 +38,10 @@
         - @themes.each do |theme|
           %li.theme
             %a{:id => "#{theme.id}", :href => "#{}"}= theme.name + " (" + theme.books.size.to_s + ")"
-        %li.nav-header Tags
-        %li panda
-        %li educatif
-        %li calques
-        %li rigolo
+    .well{:style => "padding: 8px 0;"}
+      %h4 Tags
+      - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+        = link_to tag.name, tag_path(:id => tag.name), :class => css_class
   #results.span10
     - if @books.size == 0
       %p No books found.

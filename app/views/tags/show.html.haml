@@ -1,0 +1,12 @@
+%br
+= "Books tagged with " + @tag_name
+%br
+- if @tag_books.size == 0
+  %p No books found for this tag.
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @tag_books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))

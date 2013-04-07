@@ -41,7 +41,7 @@ Hds::Application.routes.draw do
   resources :children, :only => [:show]
   resources :reviews
   resources :follows
-
+  resources :tags
     
   
   

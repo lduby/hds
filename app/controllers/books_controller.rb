@@ -6,6 +6,7 @@ class BooksController < ApplicationController
     @categories = Category.all
     @themes = Theme.all
     @book_types = BookType.all
+    @tags = Book.tag_counts_on(:tags)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -461,6 +462,10 @@ class BooksController < ApplicationController
   def search_tags
     @tags = Book.tag_counts_on(:tags)
     render :json => @tags
+  end
+
+  def tag_cloud
+    @tags = Book.tag_counts_on(:tags)
   end
   
 end
