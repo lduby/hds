@@ -29,7 +29,7 @@ class Book < ActiveRecord::Base
   end
 
   def illustrators_list
-    @list = "";
+    @list = ""
     illustrators.each do |i|
       if i == illustrators.first
         @list << "#{i.name}"
@@ -41,9 +41,21 @@ class Book < ActiveRecord::Base
   end
 
   def themes_list
-    @list = "";
+    @list = ""
     themes.each do |t|
       if t == themes.first
+        @list << "#{t.name}"
+      else 
+        @list << ", #{t.name}"
+      end
+    end
+    @list
+  end
+
+  def tags_list
+    @list = ""
+    tags.each do |t|
+      if t == tags.first
         @list << "#{t.name}"
       else 
         @list << ", #{t.name}"

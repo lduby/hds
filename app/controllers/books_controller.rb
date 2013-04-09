@@ -46,6 +46,14 @@ class BooksController < ApplicationController
   # GET /books/1/edit
   def edit
     @book = Book.find(params[:id])
+    @tags_list = ""
+    @book.tags.each do |t|
+      if t == @book.tags.first
+        @tags_list << "#{t.name}"
+      else 
+        @tags_list << ", #{t.name}"
+      end
+    end
   end
 
   # POST /books
