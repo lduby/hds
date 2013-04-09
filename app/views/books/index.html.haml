@@ -51,7 +51,7 @@
           %li.span2
             .thumbnail
               %a{:href => book_path(book)}
-                %img{:src => book.cover_url}
+                = image_tag(book.cover.url(:medium))
               .caption
                 %h5
                   =link_to book.title, book_path(book)
