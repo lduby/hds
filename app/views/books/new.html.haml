@@ -10,7 +10,8 @@
       $("#tags").magicSuggest({
         name: "book[tags]",
         resultAsString: true,
-        data: "/books/search_tags"
+        data: "/books/search_tags",
+        valueField: "name"
       });
     });
    

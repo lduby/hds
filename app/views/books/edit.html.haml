@@ -10,7 +10,8 @@
       ms = $("#tags").magicSuggest({
         name: "book[tags]",
         resultAsString: true,
-        data: "/books/search_tags"
+        data: "/books/search_tags",
+        valueField: "name"
       });
       $(ms).on('beforeload', function(){
         if(!_initialized){ // only do it once
