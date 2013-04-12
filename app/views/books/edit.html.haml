@@ -11,26 +11,17 @@
         name: "book[tags]",
         resultAsString: true,
         data: "/books/search_tags",
-        valueField: "name"
-      });
-      $(ms).on('beforeload', function(){
-        if(!_initialized){ // only do it once
-          _initialized = true;
-          ms.setDataUrlParams({
+        valueField: "name",
+        dataUrlParams: {
             init: true,
             defaultValues: $("#tags_list").val().split(',')
-          });
-        } else {
-          ms.setDataUrlParams({});
         }
-      }
+      });
       $(ms).on('load', function(){
-        if(!_dataSet){
-          // we get here the first time the combo has loaded and gone through 
-          // the first if case in tag-autocomplete-service.php: the combo has been
-          // populated with the default values only.
-          _dataSet = true;
-          ms.setValue($("#tags_list").val().split(','));
+        if(this._dataSet === undefined){
+            this._dataSet = true;
+            ms.setValue($("#tags_list").val().split(','));
+            ms.setDataUrlParams({});
         }
       });
     });

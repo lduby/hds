@@ -51,7 +51,7 @@ class BooksController < ApplicationController
       if t == @book.tags.first
         @tags_list << "#{t.name}"
       else 
-        @tags_list << ", #{t.name}"
+        @tags_list << ",#{t.name}"
       end
     end
   end
