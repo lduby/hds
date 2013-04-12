@@ -24,7 +24,7 @@ ul#grid {
   padding: 0;
   list-style: none;
   margin: 0px auto 0;
-  width: 700px;  
+  /*width: 700px;  */
   }
 
 #grid li {
