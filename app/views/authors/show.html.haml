@@ -1,13 +1,14 @@
-%p#notice= notice
+%br
+%h1= @author.name
+%br
 .page-header
-  %h4
-    = @author.name
-    %a.btn.btn-mini.pull-right{:href => edit_author_path(@author)}
-      %i.icon-pencil
-      Edit Author
-- if @author.books.size != 0
-  .thumbnails
-  - @author.books.each do |book|
-    .span1
-      %a{:href => book_path(book)}
-        %img{:src => book.cover_url}
+  %strong Bibliography
+- if @author.books.size == 0
+  %p= "No books found for "+@author.name+"."
+- else 
+  %ul.thumbnails{:id => "grid"}
+    - @author.books.each do |book|
+      %li
+        .thumbnail
+          %a{:href => book_path(book)}
+            = image_tag(book.cover.url(:tiny))
