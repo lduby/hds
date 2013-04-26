@@ -14,6 +14,11 @@
         valueField: "name"
       });
     });
+
+- content_for :context_bar do
+  %a.btn{:href => new_book_path}
+    %i.icon-plus
+    New Book
    
 %h1 New book
 
