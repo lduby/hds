@@ -3,8 +3,8 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
-    @categories = Category.all
-    @themes = Theme.all
+    @categories = Category.joins(:books).group("category_id")
+    @themes = Theme.joins(:books).group("theme_id")
     @book_types = BookType.all
     @tags = Book.tag_counts_on(:tags)
 
