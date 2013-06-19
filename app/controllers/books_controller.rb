@@ -1,4 +1,8 @@
 class BooksController < ApplicationController
+  #include HTTParty
+  require 'open-uri'
+  require 'date'
+
   # GET /books
   # GET /books.json
   def index
@@ -474,6 +478,85 @@ class BooksController < ApplicationController
 
   def tag_cloud
     @tags = Book.tag_counts_on(:tags)
+  end
+
+  def search_for
+    logger.debug(params)
+    #@response = HTTParty.get('http://openisbn.com/isbn/'+params['isbn'])
+    ### OpenISBN
+    # @doc = Nokogiri::HTML(open('http://openisbn.com/isbn/'+params['isbn'])) 
+    # @title = @doc.css('.Articles h1').inner_text
+    # @img_url = @doc.css('.PostContent img')[0]['src']
+    # @details = @doc.xpath('//div[@class="Article"]//div[@class="PostContent"]/text()')
+    # @details_splitted = @details.to_s.split('<BR>')
+    # logger.debug(@title)
+    # logger.debug(@img_url)
+    # logger.debug(@details_splitted.to_s)
+    ### Amazon Search
+    @amazon_url = 'http://www.amazon.fr/s/ref=nb_sb_noss?field-keywords='+params['isbn']
+    logger.debug(@amazon_url)
+    @doc = Nokogiri::HTML(open(@amazon_url))
+    @book_link = @doc.xpath('//div[@class="productTitle"]/a[@href]')
+    @book_url = @book_link[0]['href'].to_s
+    if !@book_link.empty?
+      logger.debug(@book_url)
+      ### Amazon book page parsing
+      @book_doc = Nokogiri::HTML(open(@book_url))
+      @book_asin_title = @book_doc.xpath('//h1[@class="parseasinTitle"]//span[@id="btAsinTitle"]')
+      @book_title = @book_asin_title.inner_text.squish.sub(/ \[.*\]/,'')
+      @book_authors = @book_doc.xpath('//div[@class="buying"]/a')
+      @book_buying = @book_doc.xpath('//div[@id="ps-content"]//div[@class="buying"]/span')
+      @book_published_at = @book_buying[1].inner_text
+      @book_collection = @book_buying[3].inner_text.squish
+      @book_description = @book_doc.xpath('//div[@id="postBodyPS"]//div')
+      @book_details = @book_doc.xpath('//table//div[@class="content"]/ul/li/text()')
+      @book_pagescount = @book_details[0].inner_text.to_s.squish.chomp(" pages")
+      @book_publisher = @book_details[1].inner_text.to_s.squish.sub(/ \(.*\)/,'')
+      #@book_collection = @book_details[2].inner_text.to_s.squish
+      #logger.debug(@book_collection)
+      @book_language = @book_details[3].inner_text.to_s.squish
+      @book_isbn10 = @book_details[4].inner_text.to_s.squish
+      @book_isbn13 = @book_details[5].inner_text.to_s.squish
+      ### Creating an object to send via JSON
+      @book = Hash.new
+      @book["title"] = @book_title
+      case @book_authors.size 
+      when 1
+        @book["authors"] = @book_authors[0].inner_text
+      when 2
+        @book["authors"] = @book_authors[0].inner_text
+        @book["illustrators"] = @book_authors[1].inner_text
+      else
+        @book_authors.each do |author|
+          if author != @book_authors.last
+            if author == @book_authors.first
+              @book_authors_list << author.inner_text
+            else
+              @book_authors_list << ", " + author.inner_text
+            end
+          end
+        end
+        @book["authors"] = @book_authors_list
+        @book["illustrators"] = @book_authors.last.inner_text
+      end 
+      @publishing_date = DateTime.parse(@book_published_at)
+      @formatted_publishing_date = @publishing_date.strftime("%Y-%m-%d")
+      @book["published_at"] = @formatted_publishing_date
+      @book["collection"] = @book_collection
+      @book["description"] = @book_description.inner_text
+      @book["pages"] = @book_pagescount
+      @book["publisher"] = @book_publisher
+      @book["language"] = @book_language
+      @book["isbn10"] = @book_isbn10
+      @book["isbn13"] = @book_isbn13
+      logger.debug(@book.to_s)
+    end
+
+    # logger.debug(@response.code)
+    # logger.debug(@response.message)
+    # logger.debug(@response.headers.inspect)
+
+    render :json => @book
   end
   
 end

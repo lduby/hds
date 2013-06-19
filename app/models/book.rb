@@ -75,4 +75,13 @@ class Book < ActiveRecord::Base
   def average_rating
     Review.average(:rating, :conditions => ['book_id = ? AND rating IS NOT NULL', self.id])
   end
+
+  def current_user_review
+    reviews.each do |review|
+      if review.shelf.profile == @current_user.profile
+        @review = review
+      end
+    end
+    @review
+  end
 end

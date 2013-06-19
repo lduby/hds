@@ -30,7 +30,8 @@
             %input{:type => "text", :id => "published_at_datepicker", :name => "published_at", :placeholder => 'Publication Date'} 
     .span4
       .field 
-        = f.text_field :isbn10, :placeholder => 'ISBN10'
+        = f.text_field :isbn10, :placeholder => 'ISBN10', :id => :isbn10
+        = yield :search_button
       .field 
         = f.text_field :isbn13, :placeholder => 'ISBN13'
       .row-fluid

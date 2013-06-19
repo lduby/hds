@@ -13,13 +13,37 @@
         data: "/books/search_tags",
         valueField: "name"
       });
+      /* Setting search button */
+      $(".search").click(
+        function () {
+          alert($('#isbn10').val());
+          $.ajax({type:'POST', url: '/books/search_for/', data: {isbn: $('#isbn10').val()}, success: function(response) {
+            $("#book_title").val(response['title']);
+            $("#book_authors").val(response['authors']);
+            $("#book_illustrators").val(response['illustrators']);
+            $("#book_publisher").val(response['publisher']);
+            $("#published_at_datepicker").val(response['published_at']);
+            $("#book_isbn13").val(response['isbn13']);
+            $("#book_page_count").val(response['pages']);
+            $("#book_edition_language").val(response['language']);
+            $("#book_publisher_resume").val(response['description']);
+          }, dataType: 'json'});
+          // Empecher l'action par défaut du bouton submit 
+          return false;
+        }
+      ); 
     });
 
 - content_for :context_bar do
   %a.btn{:href => new_book_path}
     %i.icon-plus
     New Book
-   
+
+- content_for :search_button do 
+  %a.btn.search
+    %i.icon-search
+    Search
+       
 %h1 New book
 
 = render 'form'

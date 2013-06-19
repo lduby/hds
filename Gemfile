@@ -10,6 +10,7 @@ gem 'sqlite3'
 # Virer les logs concernant les assets
 group :development do
   gem "quiet_assets", ">= 1.0.1"
+  gem 'railroady'
 end
 
 
@@ -48,6 +49,9 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'paperclip'
 
 gem 'best_in_place'
+
+gem 'httparty'
+gem 'nokogiri'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
