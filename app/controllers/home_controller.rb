@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     @books = Book.all
+    @last_entries = Book.order("created_at DESC").limit(10)
     if user_signed_in?
       if current_user.profile.nil?
         logger.debug(current_user.id)

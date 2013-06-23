@@ -1,3 +1,6 @@
+= stylesheet_link_tag params[:controller]
+= javascript_include_tag "modernizr.custom.js"
+
 %br
 - if !user_signed_in?
   .hero-unit
@@ -13,6 +16,103 @@
     %a.btn.btn-primary.btn-large{:href => new_user_registration_path}
       Join us!
 %br
+.main.clearfix
+  %ul.bb-custom-grid{:id => "bb-custom-grid"}
+    %li
+      %h3 Last Entries
+      .bb-bookblock
+        - if @last_entries.size > 0
+          - @last_entries.each do |book|
+            .bb-item
+              %a{:href => book_path(book)}
+                = image_tag(book.cover.url(:tiny))
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Last Entries
+      .bb-bookblock
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/702201-Cat"}
+            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/702201/cat.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/493644-Death-Planet"}
+            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/493644/deathplanet.png"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/432311-Bearwolf"}
+            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/432311/bearwolf.png"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/297337-iPhone-4S"}
+            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/297337/ilus2.png"}
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Popular Books
+      .bb-bookblock
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/702201-Cat"}
+            %img{:src => "images/demo3/5.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/493644-Death-Planet"}
+            %img{:src => "images/demo3/6.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/432311-Bearwolf"}
+            %img{:src => "images/demo3/7.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/297337-iPhone-4S"}
+            %img{:src => "images/demo3/8.jpg"}
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Most Reviewed
+      .bb-bookblock
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/298473-Pirate-Ghosts"}
+            %img{:src => "images/demo3/9.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/298470-Sad-Tree"}
+            %img{:src => "images/demo3/10.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/298467-Male-Mermaid"}
+            %img{:src => "images/demo3/11.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/298463-Wolf-Eats-Cat"}
+            %img{:src => "images/demo3/12.jpg"}
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Coup de coeur
+      .bb-bookblock
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/327171-Around-the-Office-Signage-7"}
+            %img{:src => "images/demo3/13.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/327170-Around-the-Office-Signage-6"}
+            %img{:src => "images/demo3/14.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/326463-Around-the-Office-Signage-4"}
+            %img{:src => "images/demo3/15.jpg"}
+        .bb-item
+          %a{:href => "http://dribbble.com/shots/326458-Around-the-Office-Signage-2"}
+            %img{:src => "images/demo3/16.jpg"}
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+
+%br
 %h3 Last entries
 %br
 %br
@@ -25,3 +125,56 @@
         .thumbnail
           %a{:href => book_path(book)}
             = image_tag(book.cover.url(:tiny))
+
+= javascript_include_tag "jquerypp.custom.js"
+= javascript_include_tag "jquery.bookblock.js"
+%script{:type => "text/javascript"}
+  :plain 
+
+    var Page = (function() {
+      var $grid = $( '#bb-custom-grid' );
+      return {
+        init : function() {
+          $grid.find( 'div.bb-bookblock' ).each( function( i ) {
+
+            var $bookBlock = $( this ),
+            $nav = $bookBlock.next().children( 'span' ),
+            bb = $bookBlock.bookblock( {
+              speed : 600,
+              shadows : false
+            } );
+
+            // add navigation events
+            $nav.each( function( i ) {
+              $( this ).on( 'click touchstart', function( event ) {
+                var $dot = $( this );
+                $nav.removeClass( 'bb-current' );
+                $dot.addClass( 'bb-current' );
+                $bookBlock.bookblock( 'jump', i + 1 );
+                return false;
+              } );
+            } );
+
+            // add swipe events
+            $bookBlock.children().on( {
+              'swipeleft' : function( event ) {
+                $bookBlock.bookblock( 'next' );
+                return false;
+              },
+              'swiperight' : function( event ) {
+                $bookBlock.bookblock( 'prev' );
+                return false;
+              }
+
+            } );
+
+          } );
+        }
+      };
+
+    })();
+
+%script{:type => "text/javascript"}
+  :plain 
+
+      Page.init();
