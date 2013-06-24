@@ -32,7 +32,33 @@
         %span
         %span
     %li
-      %h3 Last Entries
+      %h3 Top 5
+      .bb-bookblock
+        - if @populars.size > 0
+          - @populars.each do |book|
+            .bb-item
+              %a{:href => book_path(book)}
+                = image_tag(book.cover.url(:bookblock))
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Most Reviewed
+      .bb-bookblock
+        - if @most_reviewed.size > 0
+          - @most_reviewed.each do |book|
+            .bb-item
+              %a{:href => book_path(book)}
+                = image_tag(book.cover.url(:bookblock))
+      %nav
+        %span.bb-current
+        %span
+        %span
+        %span
+    %li
+      %h3 Coup de coeur
       .bb-bookblock
         .bb-item
           %a{:href => "http://dribbble.com/shots/702201-Cat"}
@@ -51,80 +77,6 @@
         %span
         %span
         %span
-    %li
-      %h3 Popular Books
-      .bb-bookblock
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/702201-Cat"}
-            %img{:src => "images/demo3/5.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/493644-Death-Planet"}
-            %img{:src => "images/demo3/6.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/432311-Bearwolf"}
-            %img{:src => "images/demo3/7.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/297337-iPhone-4S"}
-            %img{:src => "images/demo3/8.jpg"}
-      %nav
-        %span.bb-current
-        %span
-        %span
-        %span
-    %li
-      %h3 Most Reviewed
-      .bb-bookblock
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/298473-Pirate-Ghosts"}
-            %img{:src => "images/demo3/9.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/298470-Sad-Tree"}
-            %img{:src => "images/demo3/10.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/298467-Male-Mermaid"}
-            %img{:src => "images/demo3/11.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/298463-Wolf-Eats-Cat"}
-            %img{:src => "images/demo3/12.jpg"}
-      %nav
-        %span.bb-current
-        %span
-        %span
-        %span
-    %li
-      %h3 Coup de coeur
-      .bb-bookblock
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/327171-Around-the-Office-Signage-7"}
-            %img{:src => "images/demo3/13.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/327170-Around-the-Office-Signage-6"}
-            %img{:src => "images/demo3/14.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/326463-Around-the-Office-Signage-4"}
-            %img{:src => "images/demo3/15.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/326458-Around-the-Office-Signage-2"}
-            %img{:src => "images/demo3/16.jpg"}
-      %nav
-        %span.bb-current
-        %span
-        %span
-        %span
-
-%br
-%h3 Last entries
-%br
-%br
-- if @books.size == 0
-  %p No books yet.
-- else 
-  %ul.thumbnails{:id => "grid"}
-    - @books.each do |book|
-      %li
-        .thumbnail
-          %a{:href => book_path(book)}
-            = image_tag(book.cover.url(:bookblock))
 
 = javascript_include_tag "jquerypp.custom.js"
 = javascript_include_tag "jquery.bookblock.js"
