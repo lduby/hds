@@ -25,7 +25,7 @@
           - @last_entries.each do |book|
             .bb-item
               %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:tiny))
+                = image_tag(book.cover.url(:bookblock))
       %nav
         %span.bb-current
         %span
@@ -124,7 +124,7 @@
       %li
         .thumbnail
           %a{:href => book_path(book)}
-            = image_tag(book.cover.url(:tiny))
+            = image_tag(book.cover.url(:bookblock))
 
 = javascript_include_tag "jquerypp.custom.js"
 = javascript_include_tag "jquery.bookblock.js"
