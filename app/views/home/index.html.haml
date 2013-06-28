@@ -1,4 +1,5 @@
 = stylesheet_link_tag params[:controller]
+/ = stylesheet_link_tag "label"
 = javascript_include_tag "modernizr.custom.js"
 
 %br
@@ -17,7 +18,7 @@
       Join us!
 %br
 .main.clearfix
-  %ul.bb-custom-grid{:id => "bb-custom-grid"}
+  %ul.bb-custom-grid.cs-style-6{:id => "bb-custom-grid"}
     %li
       %h3 Last Entries
       .bb-bookblock
@@ -25,12 +26,20 @@
           - @last_entries.each do |book|
             .bb-item
               %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:bookblock))
+                %figure
+                  = image_tag(book.cover.url(:bookblock), :width => "400", :height => "300")
+                  %figcaption
+                    %h3= book.title
+                    %span= book.authors_list
+                    %a{:href => book_path(book)} Details
+                /= image_tag(book.cover.url(:bookblock))
       %nav
-        %span.bb-current
-        %span
-        %span
-        %span
+        - if @last_entries.size > 1
+          - @last_entries.each do |book|
+            - if book == @last_entries.first
+              %span.bb-current
+            - else 
+              %span
     %li
       %h3 Top 5
       .bb-bookblock
@@ -40,10 +49,12 @@
               %a{:href => book_path(book)}
                 = image_tag(book.cover.url(:bookblock))
       %nav
-        %span.bb-current
-        %span
-        %span
-        %span
+        - if @populars.size > 1
+          - @populars.each do |book|
+            - if book == @populars.first
+              %span.bb-current
+            - else 
+              %span
     %li
       %h3 Most Reviewed
       .bb-bookblock
@@ -53,10 +64,12 @@
               %a{:href => book_path(book)}
                 = image_tag(book.cover.url(:bookblock))
       %nav
-        %span.bb-current
-        %span
-        %span
-        %span
+        - if @most_reviewed.size > 1
+          - @most_reviewed.each do |book|
+            - if book == @most_reviewed.first
+              %span.bb-current
+            - else 
+              %span
     %li
       %h3 Coup de coeur
       .bb-bookblock
@@ -130,3 +143,5 @@
   :plain 
 
       Page.init();
+
+= javascript_include_tag "toucheffects.js"
