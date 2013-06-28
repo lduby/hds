@@ -5,17 +5,21 @@
 %br
 - if !user_signed_in?
   .hero-unit
-    %h1 Children books referential
-    %br
-    %p 
-      You don't know what to read to your children ...
-      %br
-      You want books to help your children confronting their fears ... 
-      %br
-      You're expecting and you want to explain your children what's going on ...
-    %br
-    %a.btn.btn-primary.btn-large{:href => new_user_registration_path}
-      Join us!
+    .row-fluid
+      .span6
+        %h1 Children books referential
+        %br
+        %p 
+          You don't know what to read to your children ...
+          %br
+          You want books to help your children confronting their fears ... 
+          %br
+          You're expecting and you want to explain your children what's going on ...
+          %br
+      .span3.pull-right
+        %h3 New to BokBok ?
+        %h4 Create a free account
+        = render 'devise/registrations/form'
 %br
 .main.clearfix
   %ul.bb-custom-grid.cs-style-6{:id => "bb-custom-grid"}
