@@ -615,3 +615,8 @@ ul.bb-custom-grid nav span.bb-current {
 	background: #ecb700;
 }
 
+
+input:-moz-placeholder{
+  color:green;
+  font-size: 12px;
+}
