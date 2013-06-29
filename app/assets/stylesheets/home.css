@@ -15,13 +15,13 @@
 }
 
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-body, html { font-size: 100%; padding: 0; margin: 0; height: 100%;}
+/*body, html { font-size: 100%; padding: 0; margin: 0; height: 100%;}*/
 
 /* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }
 
-body {
+/*body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	color: #777;
 	background: #f6f6f6;
@@ -40,10 +40,10 @@ a:active {
 
 a img {
 	border: none;
-}
+}*/
 
 /* Header Style */
-.main,
+/*.main,
 .container > header {
 	margin: 0 auto;
 	padding: 2em;
@@ -70,7 +70,7 @@ a img {
 	font-size: 60%;
 	opacity: 0.3;
 	padding: 0 0 0.6em 0.1em;
-}
+}*/
 
 /* Main Content */
 .main {
@@ -99,7 +99,7 @@ a img {
 }
 
 /* To Navigation Style */
-.codrops-top {
+/*.codrops-top {
 	background: #fff;
 	background: rgba(255, 255, 255, 0.6);
 	text-transform: uppercase;
@@ -159,10 +159,10 @@ a img {
 
 .codrops-icon-about:before {
 	content: "\e003";
-}
+}*/
 
 /* Demo Buttons Style */
-.codrops-demos {
+/*.codrops-demos {
 	padding-top: 1em;
 	font-size: 0.9em;
 }
@@ -191,11 +191,11 @@ a img {
 	display: inline-block;
 	margin: 20px auto;
 	padding: 0.3em;
-}
+}*/
 
 /* Demo Styles */
 
-.demo-1 body {
+/*.demo-1 body {
 	color: #87968e;
 	background: #fff2e3;
 }
@@ -265,7 +265,7 @@ a img {
 .demo-4 .codrops-demos a {
 	background: #1baede;
 	color: #fff;
-}
+}*/
 
 .demo-5 body {
 	background: #fffbd6;
