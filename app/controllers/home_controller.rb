@@ -15,6 +15,10 @@ class HomeController < ApplicationController
             :conditions  => "reviews.rating IS NOT NULL",
             :limit => 5)
     #@coup_coeur = Book.order("created_at DESC").limit(10)
+
+    @tags = Book.tag_counts_on(:tags)
+    @last_reviews = Review.all(:conditions => "details IS NOT NULL", :order => "created_at DESC", :limit => 5)
+
     if user_signed_in?
       if current_user.profile.nil?
         logger.debug(current_user.id)

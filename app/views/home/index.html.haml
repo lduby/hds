@@ -97,17 +97,30 @@
             %span
             %span
   .span4
-    %br
+    - if !user_signed_in?
+      .well
+        %form.navbar-search.pull-left{:action => ''}
+          .input-append
+            %input{:type => "text", :placeholder => "Title / Author / ISBN"}
+              %span.add-on
+                %i.icon-search
+        %br
     .well
-      %h2 Last reviews
-      %br
-      %br
-      %br
-      %br
-      %br
-      %br
-      %br
-      %br
+      %h4 Tags
+      - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+        = link_to tag.name, tag_path(:id => tag.name), :class => css_class
+    .well
+      %h4 Last reviews
+      - if @last_reviews.size > 0
+        - @last_reviews.each do |review|
+          .media
+            %a.pull-left{:href => book_path(review.book)}
+              = image_tag(review.book.cover.url(:thumb))
+            .media-body
+              %h5.media-heading
+                = review.book.title
+                %span.badge= review.rating
+              = review.details.to(83)
     .well
       %h2 Lists
       %br
