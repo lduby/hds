@@ -1,5 +1,5 @@
-= link_to "BokBok", root_path, :class => 'brand'
 - if user_signed_in?
+  = link_to "BokBok", root_path, :class => 'brand'
   .btn-group.pull-right
     %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
       %i.icon-user
@@ -17,9 +17,11 @@
       %li
         = link_to('Logout', destroy_user_session_path, :method=>'delete')
 - else
+  = link_to "BokBok", root_path, {:class => 'brand', :style => 'font-size: 50px; margin-top: 20px;'}
   .pull-right
-    %a.btn{:href => new_user_session_path}
-      Login
+    = render 'devise/sessions/form'
+    / %a.btn{:href => new_user_session_path}
+    /   Login
 %ul.nav
   - if user_signed_in?
     / %li

@@ -20,80 +20,104 @@
         %h3 New to BokBok ?
         %h4 Create a free account
         = render 'devise/registrations/form'
-%br
-.main.clearfix
-  %ul.bb-custom-grid.cs-style-6{:id => "bb-custom-grid"}
-    %li
-      %h3 Last Entries
-      .bb-bookblock
-        - if @last_entries.size > 0
-          - @last_entries.each do |book|
+
+.row-fluid
+  .span8
+    .main.clearfix
+      %ul.bb-custom-grid.cs-style-6{:id => "bb-custom-grid"}
+        %li
+          %h3 Last Entries
+          .bb-bookblock
+            - if @last_entries.size > 0
+              - @last_entries.each do |book|
+                .bb-item
+                  %a{:href => book_path(book)}
+                    %figure
+                      = image_tag(book.cover.url(:bookblock), :width => "400", :height => "300")
+                      %figcaption
+                        %h3= book.title
+                        %span= book.authors_list
+                        %a{:href => book_path(book)} Details
+                    /= image_tag(book.cover.url(:bookblock))
+          %nav
+            - if @last_entries.size > 1
+              - @last_entries.each do |book|
+                - if book == @last_entries.first
+                  %span.bb-current
+                - else 
+                  %span
+        %li
+          %h3 Top 5
+          .bb-bookblock
+            - if @populars.size > 0
+              - @populars.each do |book|
+                .bb-item
+                  %a{:href => book_path(book)}
+                    = image_tag(book.cover.url(:bookblock))
+          %nav
+            - if @populars.size > 1
+              - @populars.each do |book|
+                - if book == @populars.first
+                  %span.bb-current
+                - else 
+                  %span
+        %li
+          %h3 Most Reviewed
+          .bb-bookblock
+            - if @most_reviewed.size > 0
+              - @most_reviewed.each do |book|
+                .bb-item
+                  %a{:href => book_path(book)}
+                    = image_tag(book.cover.url(:bookblock))
+          %nav
+            - if @most_reviewed.size > 1
+              - @most_reviewed.each do |book|
+                - if book == @most_reviewed.first
+                  %span.bb-current
+                - else 
+                  %span
+        %li
+          %h3 Coup de coeur
+          .bb-bookblock
             .bb-item
-              %a{:href => book_path(book)}
-                %figure
-                  = image_tag(book.cover.url(:bookblock), :width => "400", :height => "300")
-                  %figcaption
-                    %h3= book.title
-                    %span= book.authors_list
-                    %a{:href => book_path(book)} Details
-                /= image_tag(book.cover.url(:bookblock))
-      %nav
-        - if @last_entries.size > 1
-          - @last_entries.each do |book|
-            - if book == @last_entries.first
-              %span.bb-current
-            - else 
-              %span
-    %li
-      %h3 Top 5
-      .bb-bookblock
-        - if @populars.size > 0
-          - @populars.each do |book|
+              %a{:href => "http://dribbble.com/shots/702201-Cat"}
+                %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/702201/cat.jpg"}
             .bb-item
-              %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:bookblock))
-      %nav
-        - if @populars.size > 1
-          - @populars.each do |book|
-            - if book == @populars.first
-              %span.bb-current
-            - else 
-              %span
-    %li
-      %h3 Most Reviewed
-      .bb-bookblock
-        - if @most_reviewed.size > 0
-          - @most_reviewed.each do |book|
+              %a{:href => "http://dribbble.com/shots/493644-Death-Planet"}
+                %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/493644/deathplanet.png"}
             .bb-item
-              %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:bookblock))
-      %nav
-        - if @most_reviewed.size > 1
-          - @most_reviewed.each do |book|
-            - if book == @most_reviewed.first
-              %span.bb-current
-            - else 
-              %span
-    %li
-      %h3 Coup de coeur
-      .bb-bookblock
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/702201-Cat"}
-            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/702201/cat.jpg"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/493644-Death-Planet"}
-            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/493644/deathplanet.png"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/432311-Bearwolf"}
-            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/432311/bearwolf.png"}
-        .bb-item
-          %a{:href => "http://dribbble.com/shots/297337-iPhone-4S"}
-            %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/297337/ilus2.png"}
-      %nav
-        %span.bb-current
-        %span
-        %span
-        %span
+              %a{:href => "http://dribbble.com/shots/432311-Bearwolf"}
+                %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/432311/bearwolf.png"}
+            .bb-item
+              %a{:href => "http://dribbble.com/shots/297337-iPhone-4S"}
+                %img{:src => "http://dribbble.s3.amazonaws.com/users/42865/screenshots/297337/ilus2.png"}
+          %nav
+            %span.bb-current
+            %span
+            %span
+            %span
+  .span4
+    %br
+    .well
+      %h2 Last reviews
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+    .well
+      %h2 Lists
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
 
 = javascript_include_tag "jquerypp.custom.js"
 = javascript_include_tag "jquery.bookblock.js"

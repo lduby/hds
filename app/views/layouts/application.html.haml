@@ -11,10 +11,11 @@
       .navbar-inner
         .container
           = render 'layouts/navigation'
-          %form.navbar-search{:action => ''}
-            .input-append
-              %input.search-query.span2{:type => "text", :placeholder => "Title / Author / ISBN"}
-                %i.icon-search
+          - if user_signed_in?
+            %form.navbar-search{:action => ''}
+              .input-append
+                %input.search-query.span2{:type => "text", :placeholder => "Title / Author / ISBN"}
+                  %i.icon-search
     #main{:role => "main"}
       .container
         .content
