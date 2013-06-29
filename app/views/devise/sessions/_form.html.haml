@@ -1,7 +1,7 @@
 %br
 = form_for(resource, :as => resource_name, :html => {class:"form-inline"}, :url => session_path(resource_name)) do |f|
   = f.email_field :email, :placeholder => "Email"
-  = f.password_field :password, :placeholder => "Password"
+  = f.password_field :password, :placeholder => "Password", :class => "input-medium"
   = f.submit "Sign in"
   - if devise_mapping.rememberable?
     %fieldset
