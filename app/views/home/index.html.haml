@@ -32,13 +32,7 @@
               - @last_entries.each do |book|
                 .bb-item
                   %a{:href => book_path(book)}
-                    %figure
-                      = image_tag(book.cover.url(:bookblock), :width => "400", :height => "300")
-                      %figcaption
-                        %h3= book.title
-                        %span= book.authors_list
-                        %a{:href => book_path(book)} Details
-                    /= image_tag(book.cover.url(:bookblock))
+                    = image_tag(book.cover.url(:bookblock))
           %nav
             - if @last_entries.size > 1
               - @last_entries.each do |book|
@@ -184,5 +178,3 @@
   :plain 
 
       Page.init();
-
-= javascript_include_tag "toucheffects.js"
