@@ -115,7 +115,7 @@
         - @last_reviews.each do |review|
           .media
             %a.pull-left{:href => book_path(review.book)}
-              = image_tag(review.book.cover.url(:thumb))
+              = image_tag(review.book.cover.url(:icon))
             .media-body
               %h5.media-heading
                 = review.book.title
