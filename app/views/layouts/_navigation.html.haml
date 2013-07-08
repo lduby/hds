@@ -35,11 +35,9 @@
     /           = link_to('Search', books_path)
     /         %li
     /           = link_to "New", new_book_path
-    %li
-      = link_to 'Books', books_path
+    %li{:class => "#{'active' if current_page?(books_path)}"}= link_to 'Books', books_path
     = yield :context_bar
-    %li
-      = link_to 'My Library', profile_shelves_path(current_user.profile)
+    %li{:class => "#{'active' if current_page?(profile_shelves_path(current_user.profile))}"}= link_to 'My Library', profile_shelves_path(current_user.profile)
     - if current_user.is? :manager
       %li
         %ul.nav
