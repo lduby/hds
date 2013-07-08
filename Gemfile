@@ -11,6 +11,8 @@ gem 'sqlite3'
 group :development do
   gem "quiet_assets", ">= 1.0.1"
   gem 'railroady'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 

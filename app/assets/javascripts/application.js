@@ -17,14 +17,14 @@
 //= require_tree .
 
 jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript"); }
+});
 
 jQuery.fn.submitWithAjax = function() {
   this.submit(function() {
     $.post(this.action, $(this).serialize(), null, "script");
     return false;
-  })
+  });
   return this;
 };
 
@@ -39,13 +39,12 @@ jQuery.fn.displayWithAjax = function(location) {
     $(location).load(href);
     // Retourne false pour ne pas que le lien soit suivi
     event.preventDefault();
-    
     return false;
-  })
+  });
   return this;
 };
 
-function hide_load_and_show_div(divname,url) {
+function hide_load_and_show_div(divname, url) {
   $(divname).hide();
   $(divname).load(url, function() {
       $(this).show('slow');
