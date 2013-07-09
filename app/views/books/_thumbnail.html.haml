@@ -1,0 +1,16 @@
+%li
+  %a{:href => "#{book_path(book)}", "data-largesrc" => "#{book.cover_url}", "data-title" => "#{book.title}", "data-authors" => "#{book.authors_list}", "data-illustrators" => "#{book.illustrators_list}", "data-rating" => "#{book.average_rating}", "data-description" => "#{book.publisher_resume}"}
+    = image_tag(book.cover.url(:tiny))
+     
+    .og-expander
+      .og-expander-inner
+        %span.og-close
+        .og-fullimg
+          .og-loading
+          = image_tag(book.cover.url(:medium))
+        .og-details
+          %h3= book.title
+          %span.contributors= "By " + book.authors_list + " and " + book.illustrators_list
+          %span.badge.badge-info= book.average_rating
+          %p= book.publisher_resume.to(100)
+          .btn= link_to 'More details', book_path(book)

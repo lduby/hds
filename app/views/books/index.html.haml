@@ -1,3 +1,6 @@
+= stylesheet_link_tag params[:controller]
+= javascript_include_tag "modernizr.custom.js"
+
 %script{:type => "text/javascript"}
   :plain 
 
@@ -23,7 +26,6 @@
     %i.icon-plus
     New Book
 
-%br
 %h1 
   Books
   %a.btn.btn-mini.pull-right{:href => new_book_path}
@@ -51,29 +53,39 @@
     - if @books.size == 0
       %p No books found.
     - else 
-      %ul.thumbnails
+      / %ul.thumbnails
+      %ul.og-grid{:id => "og-grid"}
         - @books.each do |book|
-          %li.span2
-            .thumbnail
-              %a{:href => book_path(book)}
-                = image_tag(book.cover.url(:medium))
-              .caption
-                %h5
-                  =link_to book.title, book_path(book)
-                %small= book.authors_list
-                %br
-                %a.btn.btn-mini{:href => edit_book_path(book)}
-                  %i.icon-pencil
-                  Edit
-                %div
-                  %span.rating
-                    %span.star
-                      %i.icon-star-empty
-                    %span.star
-                      %i.icon-star-empty
-                    %span.star
-                      %i.icon-star-empty
-                    %span.star
-                      %i.icon-star-empty
-                    %span.star
-                      %i.icon-star-empty
+          = render 'thumbnail', :book => book 
+          / %li.span2
+          /   .thumbnail
+          /     %a{:href => book_path(book)}
+          /       = image_tag(book.cover.url(:medium))
+          /     .caption
+          /       %h5
+          /         =link_to book.title, book_path(book)
+          /       %small= book.authors_list
+          /       %br
+          /       %a.btn.btn-mini{:href => edit_book_path(book)}
+          /         %i.icon-pencil
+          /         Edit
+          /       %div
+          /         %span.rating
+          /           %span.star
+          /             %i.icon-star-empty
+          /           %span.star
+          /             %i.icon-star-empty
+          /           %span.star
+          /             %i.icon-star-empty
+          /           %span.star
+          /             %i.icon-star-empty
+          /           %span.star
+          /             %i.icon-star-empty
+
+= javascript_include_tag "grid.js"
+%script{:type => "text/javascript"}
+  :plain 
+    
+    $(function() {
+      Grid.init();
+    });
