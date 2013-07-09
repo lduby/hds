@@ -1,9 +1,24 @@
+= stylesheet_link_tag "books.css"
+= javascript_include_tag "modernizr.custom.js"
+
 - if @theme_books.size == 0
   %p= "No books found for "+@theme.name+"."
 - else 
-  %ul.thumbnails{:id => "grid"}
+  %ul.og-grid{:id => "og-grid"}
     - @theme_books.each do |book|
-      %li
-        .thumbnail
-          %a{:href => book_path(book)}
-            = image_tag(book.cover.url(:tiny))
+      = render '/books/thumbnail', :book => book 
+
+  / %ul.thumbnails{:id => "grid"}
+  /   - @theme_books.each do |book|
+  /     %li
+  /       .thumbnail
+  /         %a{:href => book_path(book)}
+  /           = image_tag(book.cover.url(:tiny))
+
+= javascript_include_tag "grid.js"
+%script{:type => "text/javascript"}
+  :plain 
+    
+    $(function() {
+      Grid.init();
+    });
