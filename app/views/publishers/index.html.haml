@@ -6,6 +6,9 @@
       jQuery(".best_in_place").best_in_place(); 
     });
 
+- content_for(:subnav) do
+  = render 'layouts/config_subnavigation'
+  
 %h1 Publishers
 #new_publisher.pull-right
   = form_for @new_publisher, :html => {:class => "form-inline", :id => "new_publisher_form"} do |f|

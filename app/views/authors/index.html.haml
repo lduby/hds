@@ -6,6 +6,9 @@
       jQuery(".best_in_place").best_in_place(); 
     });
 
+- content_for(:subnav) do
+  = render 'layouts/config_subnavigation'
+  
 %h1 Authors
 #new_author.pull-right
   = form_for @new_author, :html => {:class => "form-inline", :id => "new_author_form"} do |f|

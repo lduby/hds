@@ -20,7 +20,14 @@
       .container
         .content
           .row
-            .span12
-              = render 'layouts/messages'
-              = yield
+            - if content_for?(:subnav)
+              .span3
+                = yield :subnav
+              .span9
+                = render 'layouts/messages'
+                = yield
+            - else
+              .span12
+                = render 'layouts/messages'
+                = yield
     #footer

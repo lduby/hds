@@ -41,7 +41,7 @@
     - if current_user.is? :manager
       %li
         %ul.nav
-          %li.dropdown
+          %li.dropdown{:class => "#{'active' if current_page?(authors_path) || current_page?(illustrators_path) || current_page?(publishers_path) || current_page?(collections_path) || current_page?(categories_path) || current_page?(book_types_path) || current_page?(themes_path) }"}
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               Configuration
               %b.caret

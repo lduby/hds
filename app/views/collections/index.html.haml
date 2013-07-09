@@ -6,7 +6,9 @@
       jQuery(".best_in_place").best_in_place(); 
     });
 
-%br
+- content_for(:subnav) do
+  = render 'layouts/config_subnavigation'
+  
 %h1 Collections
 #new_collection.pull-right
   = form_for @new_collection, :html => {:class => "form-inline", :id => "new_collection_form"} do |f|

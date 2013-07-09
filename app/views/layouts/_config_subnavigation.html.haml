@@ -1,0 +1,11 @@
+%br/
+%ul.nav.nav-tabs.nav-stacked
+  %li{:class => "#{'active' if current_page?(authors_path)}"}= link_to 'Authors', authors_path
+  %li{:class => "#{'active' if current_page?(illustrators_path)}"}= link_to 'Illustrators', illustrators_path
+  %li{:class => "#{'active' if current_page?(publishers_path)}"}= link_to 'Publishers', publishers_path
+  %li{:class => "#{'active' if current_page?(collections_path)}"}= link_to 'Collections', collections_path
+  %li{:class => "#{'active' if current_page?(categories_path)}"}= link_to 'Book Categories', categories_path
+  %li{:class => "#{'active' if current_page?(book_types_path)}"}= link_to 'Book Types', book_types_path
+  %li{:class => "#{'active' if current_page?(themes_path)}"}= link_to 'Book Themes', themes_path
+  %li{:class => "#{'active' if current_page?(tags_path)}"}= link_to 'Tags', tags_path
+  / %li{:class => "#{'active' if current_page?(parameters_path)}"}= link_to 'Parameters', parameters_path

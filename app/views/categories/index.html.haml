@@ -6,6 +6,9 @@
       jQuery(".best_in_place").best_in_place(); 
     });
 
+- content_for(:subnav) do
+  = render 'layouts/config_subnavigation'
+  
 %h1 Categories
 #new_category.pull-right
   = form_for @new_category, :html => {:class => "form-inline", :id => "new_category_form"} do |f|
