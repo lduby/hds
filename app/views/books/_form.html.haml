@@ -19,15 +19,21 @@
         - else
           %input.input-block-level.search-query.typeahead{:name => "book[illustrators]", :value => @book.illustrators_list, :type => "text", :id => 'book_illustrators'}/
       .row-fluid
-        .span6
+        .span4
           .field
             - if @book.publisher.nil?
-              %input.input-large.search-query.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text", :id => 'book_publisher'}/
+              %input.input-medium.search-query.typeahead{:name => "book[publisher_id]", :placeholder => 'Publisher', :type => "text", :id => 'book_publisher'}/
             - else
-              %input.input-large.search-query.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
-        .span6 
+              %input.input-medium.search-query.typeahead{:name => "book[publisher_id]", :value => @book.publisher.name, :type => "text", :id => 'book_publisher'}/
+        .span4 
           .field
-            %input{:type => "text", :id => "published_at_datepicker", :name => "published_at", :placeholder => 'Publication Date'} 
+            %input.input-medium{:type => "text", :id => "published_at_datepicker", :name => "published_at", :placeholder => 'Publication Date'} 
+        .span4
+          .field
+            - if @book.collection.nil?
+              %input.input-medium.search-query.typeahead{:name => "book[collection_id]", :placeholder => 'Collection', :type => "text", :id => 'book_collection'}/
+            - else
+              %input.input-medium.search-query.typeahead{:name => "book[collection_id]", :value => @book.collection.name, :type => "text", :id => 'book_collection'}/
     .span4
       .field 
         = f.text_field :isbn10, :placeholder => 'ISBN10', :id => :isbn10
@@ -69,3 +75,8 @@
   .row-fluid
     .actions
       = f.submit
+
+%script{:type => "text/javascript"}
+  :plain 
+
+      / $('#book_publisher').subSelectWithAjax();

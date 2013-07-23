@@ -5,11 +5,13 @@ Hds::Application.routes.draw do
   get 'books/search_publishers'
   get 'books/search_themes'
   post 'books/search_tags'
+  post 'books/search_for'
   put 'reviews/select_shelf'
   put 'reviews/change_shelf'
   get 'profiles/search_followable_users'
   get 'shelves/list'
   get 'shelves/gridlist'
+  match 'publishers/collections_by_publisher/:name' => "publishers#collections_by_publisher", :via => :get
 
   devise_for :users  
   resources :users do

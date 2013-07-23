@@ -81,4 +81,27 @@ class PublishersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def collections_by_publisher
+    if params[:name].present?
+      logger.debug("Getting collections for publisher "+params[:name])
+      @collections = Publisher.find_by_name(params[:name]).collections
+    else
+      logger.debug('Getting no collections because no publisher id was found')
+      @collections = []
+    end
+    if @collections.size > 0
+      logger.debug("Found "+@collections.size.to_s+" collections" )
+      render :json => @collections.map {|c| [c.name, c.id]}
+    else 
+      logger.debug("No collection found")
+      render :json => @collections
+    end
+
+
+  # respond_to do |format|
+  #   format.js
+  # end
+end
+
 end

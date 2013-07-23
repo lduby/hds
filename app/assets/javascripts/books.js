@@ -8,6 +8,25 @@ $(document).ready(function() {
         }
         $('#book_publisher').typeahead({source: pub, items:5});
     });
+  $('#book_publisher').change( function() {
+    var coll = new Array();
+    var publisher_name = $('#book_publisher').val();
+    if (publisher_name != '') {
+      alert("Publisher has changed");
+      var autocomplete = $('#book_collection').typeahead();
+      $.getJSON('/publishers/collections_by_publisher/'+publisher_name,function(data){
+           var i=0;
+           for(i=0;i<data.length;i++){
+              console.log(data[i]);
+              coll[i]=data[i][0];
+          }
+          autocomplete.data('typeahead').source = coll;
+          // $('#book_collection').typeahead({
+          //   source: coll
+          // });
+      });
+    }
+  });
   var aut=new Array(); // regular array (add an optional integer)
   $.getJSON('/books/search_authors',function(data){
          var i=0;
@@ -35,4 +54,5 @@ $(document).ready(function() {
         }
         $('#book_themes').typeahead({source: thm, mode: 'multiple', items:5});
     });
+  
 });
