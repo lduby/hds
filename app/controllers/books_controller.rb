@@ -146,6 +146,33 @@ class BooksController < ApplicationController
       logger.debug("Setting up the publisher id")
       logger.debug(params[:book][:publisher_id])
     end
+    # Getting the selected collection
+    logger.debug("params[:book][:collection_id]")
+    logger.debug(params[:book][:collection_id])
+    @collection = Collection.find_by_name(params[:book][:collection_id])
+    if @collection.nil?
+      logger.debug("collection does not exist => Creating one !")
+      if !@publisher.nil? 
+        @collection = @publisher.collections.create(:name => params[:book][:collection_id])
+        if @collection.save
+          logger.debug("collection successfully created")
+          logger.debug(@collection)
+          params[:book][:collection_id] = @collection.id
+        else 
+          logger.debug("error while creating collection")
+          params[:book][:collection_id] = ""
+          logger.debug("Deleting the collection id")
+          logger.debug(params[:book][:collection_id])
+        end
+      else
+        # TBD : actions if the no publisher created and a collection was provided
+      end
+    else 
+      logger.debug("Collection found")
+      params[:book][:collection_id] = @collection.id
+      logger.debug("Setting up the collection id")
+      logger.debug(params[:book][:collection_id])
+    end
     # Getting the selected tags
     logger.debug("params[:book][:tags]")
     logger.debug(params[:book][:tags])
@@ -366,6 +393,37 @@ class BooksController < ApplicationController
         params[:book][:publisher_id] = @publisher.id
         logger.debug("Setting up the publisher id")
         logger.debug(params[:book][:publisher_id])
+      end
+    end
+    logger.debug("Updating the attribute with params[:book]")
+    logger.debug(params[:book])
+    # Getting the selected collection
+    logger.debug("params[:book][:collection_id]")
+    logger.debug(params[:book][:collection_id])
+    if params[:book][:collection_id] != ""
+      @collection = Collection.find_by_name(params[:book][:collection_id])
+      if @collection.nil?
+        logger.debug("collection does not exist => Creating one !")
+        if !@publisher.nil?
+          @collection = @publisher.collections.create(:name => params[:book][:collection_id])
+          if @collection.save
+            logger.debug("collection successfully created")
+            logger.debug(@collection)
+            params[:book][:collection_id] = @collection.id
+          else 
+            logger.debug("error while creating collection")
+            params[:book][:collection_id] = ""
+            logger.debug("Deleting the collection id")
+            logger.debug(params[:book][:collection_id])
+          end
+        else
+          # TBD Actions when no publisher for a new collection
+        end
+      else 
+        logger.debug("Collection found")
+        params[:book][:collection_id] = @collection.id
+        logger.debug("Setting up the collection id")
+        logger.debug(params[:book][:collection_id])
       end
     end
     logger.debug("Updating the attribute with params[:book]")
