@@ -2,11 +2,9 @@
 %h1= @collection.name
 %br
 .page-header
-  %strong Publisher
-= link_to @collection.publisher.name, @collection.publisher
-%br
-.page-header
-  %strong Bibliography
+  %strong
+    = "Published by "
+    = link_to @collection.publisher.name, publisher_path(@collection.publisher)
 - if @collection.books.size == 0
   %p= "No books found for "+@collection.name+"."
 - else 
@@ -16,3 +14,4 @@
         .thumbnail
           %a{:href => book_path(book)}
             = image_tag(book.cover.url(:tiny))
+
