@@ -64,7 +64,8 @@
                 = "Published "+@book.published_at.to_datetime.to_s
                 %br             
             - if !@book.collection.nil?
-              = "Collection: "+@book.collection.name
+              = "Collection: "
+              = link_to @book.collection.name, collection_path(@book.collection)
               %br
             - if !@book.page_count.nil?
               = @book.page_count.to_s+" pages"
