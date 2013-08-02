@@ -37,6 +37,14 @@ ul#grid {
   display: block;
   }
 
+#grid li.tiny img {
+  background-color: #64666a;
+  padding: 7px; margin: 0;
+  border: 1px dotted #58595b;
+  width: 64px;
+  height: 64px;
+  }
+
 #grid li img {
   background-color: #64666a;
   padding: 7px; margin: 0;

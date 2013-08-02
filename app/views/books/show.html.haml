@@ -91,8 +91,21 @@
             - if !review.rating.nil?
               %span.badge= review.rating 
   .span4
-    .page-header
-      %h3= "Other Editions"
+    - if !@book.collection.nil?
+      .page-header
+        %h3
+          = "In the same collection"
+          .btn.btn-small= link_to "More", collection_path(@book.collection)
+      - if @book.collection.books.size < 2
+        %p= "No other books found in the same collection."
+      - else 
+        %ul.thumbnails{:id => "grid"}
+          - @book.collection.books.each do |book|
+            - if book != @book
+              %li.tiny
+                .thumbnail
+                  %a{:href => book_path(book)}
+                    = image_tag(book.cover.url(:icon))
     .page-header
       %h3= "Tags"
     = @book.tag_list

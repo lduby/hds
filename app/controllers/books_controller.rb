@@ -22,6 +22,15 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @book = Book.find(params[:id])
+    @same_collection_books = Array.new
+    if !@book.collection.nil?
+      @same_collection_books = @book.collection.books
+      # @same_collection_books.each do |b|
+      #   if b == @book
+      #     @same_collection_books = @same_collection_books.delete(b)
+      #   end
+      # end
+    end
     @book_shelf = nil
     if user_signed_in?
       @current_user = current_user
