@@ -31,6 +31,8 @@
           = @book.title
           %span.badge= @book.average_rating
           %small= "( #{@book.ratings_count} ratings)" 
+          - if user_signed_in?
+            %span.btn.btn-small= link_to 'Edit', edit_book_path(@book)
         %h5
           = "written by "
           - @book.authors.each do |a|
@@ -92,25 +94,24 @@
               %span.badge= review.rating 
   .span4
     - if !@book.collection.nil?
+      .section{:id => "collection_books_section"}
+        .page-header
+          %h4
+            = "In the same collection"
+            %span
+            .btn.btn-small.pull-right= link_to "More", collection_path(@book.collection)
+        - if @book.collection.books.size < 2
+          %p= "No other books found in the same collection."
+        - else 
+          %ul.thumbnails{:id => "grid"}
+            - @book.collection.books.each do |book|
+              - if book != @book
+                %li.tiny
+                  .thumbnail
+                    %a{:href => book_path(book)}
+                      = image_tag(book.cover.url(:icon))
+    %br
+    .section{:id => "tags_section"}
       .page-header
-        %h3
-          = "In the same collection"
-          .btn.btn-small= link_to "More", collection_path(@book.collection)
-      - if @book.collection.books.size < 2
-        %p= "No other books found in the same collection."
-      - else 
-        %ul.thumbnails{:id => "grid"}
-          - @book.collection.books.each do |book|
-            - if book != @book
-              %li.tiny
-                .thumbnail
-                  %a{:href => book_path(book)}
-                    = image_tag(book.cover.url(:icon))
-    .page-header
-      %h3= "Tags"
-    = @book.tag_list
-    
-- if user_signed_in?
-  = link_to 'Edit', edit_book_path(@book)
-  \|
-  = link_to 'Back', books_path
+        %h4= "Tags"
+      = @book.tag_list

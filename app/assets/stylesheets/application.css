@@ -94,3 +94,14 @@ div.grid_display h2 {
 .css2 { font-size: 1.2em; }
 .css3 { font-size: 1.4em; }
 .css4 { font-size: 1.6em; }
+
+/* Page Sections */ 
+
+.section {
+  background-color: #FFEEDD;
+  padding: 1px 8px 10px 8px;
+}
+
+.section .page-header {
+  border-color: #B35439;
+}
